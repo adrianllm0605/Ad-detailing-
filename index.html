@@ -522,6 +522,14 @@
     .d4 { transition-delay: .4s; }
     .d5 { transition-delay: .5s; }
 
+    /* ── ABOUT LOGO IMAGE ───────────────────────────────────── */
+    .about-logo-img {
+      width: 280px; height: 280px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 30px rgba(201,162,39,.35))
+              drop-shadow(0 0 60px rgba(30,107,255,.15));
+    }
+
     /* ── BLUE ACCENTS ────────────────────────────────────── */
     .nav-logo .badge {
       box-shadow: 0 0 0 2px rgba(30,107,255,.5), 0 0 16px rgba(30,107,255,.25);
@@ -651,8 +659,10 @@
 <!-- ── SPLASH ──────────────────────────────────────────────── -->
 <div id="splash">
 
-  <!-- Logo SVG recreation -->
-  <svg class="spl-logo" width="200" height="218" viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
+  <!-- Logo: uses logo.png when available, falls back to SVG -->
+  <img class="spl-logo" src="logo.png" alt="AD Detailing Logo" width="200"
+       onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
+  <svg class="spl-logo" style="display:none" width="200" height="218" viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="sgl" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stop-color="#FFE566"/>
@@ -742,7 +752,7 @@
 
   <!-- Social icons -->
   <div class="spl-socials">
-    <a href="https://www.instagram.com/ad_detaiils._/" target="_blank" rel="noopener" class="spl-soc">
+    <a href="https://www.instagram.com/ad_details._/" target="_blank" rel="noopener" class="spl-soc">
       <div class="spl-ico">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5"/>
@@ -752,7 +762,7 @@
       </div>
       <span>Instagram</span>
     </a>
-    <a href="https://www.tiktok.com/@ad_details.0" target="_blank" rel="noopener" class="spl-soc">
+    <a href="https://www.tiktok.com/@ad_detaling.0" target="_blank" rel="noopener" class="spl-soc">
       <div class="spl-ico">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.93a8.2 8.2 0 0 0 4.82 1.55V7.04a4.85 4.85 0 0 1-1.06-.35z"/>
@@ -784,7 +794,6 @@
   <ul class="nav-links" id="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#reviews">Reviews</a></li>
     <li><a href="#booking" class="nav-cta">Book Now</a></li>
   </ul>
@@ -1007,8 +1016,10 @@
 <!-- ── ABOUT ────────────────────────────────────────────────── -->
 <section id="about">
   <div class="about-wrap">
-    <div class="reveal-l">
-      <div class="logo-ring">
+    <div class="reveal-l" style="display:flex;justify-content:center;">
+      <img src="logo.png" alt="AD Detailing Logo" class="about-logo-img"
+           onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="logo-ring" style="display:none">
         <span class="crown">👑</span>
         <div class="ad"><span>A</span>D</div>
         <span class="det">Detailing</span>
@@ -1033,39 +1044,6 @@
   </div>
 </section>
 
-<!-- ── GALLERY ───────────────────────────────────────────────── -->
-<section id="gallery">
-  <div class="section-hd reveal">
-    <span class="stag">Our Work</span>
-    <h2 class="stitle">Before &amp; <span class="gold">After</span></h2>
-    <div class="sdivider"></div>
-  </div>
-  <div class="gallery-grid">
-    <div class="g-item reveal d1">
-      <div class="g-ph"><div class="ico">🚗</div><div class="lbl">Add Your Photo</div></div>
-      <div class="g-overlay"><span>Interior Detail</span></div>
-    </div>
-    <div class="g-item reveal d2">
-      <div class="g-ph"><div class="ico">✨</div><div class="lbl">Add Your Photo</div></div>
-      <div class="g-overlay"><span>Exterior Polish</span></div>
-    </div>
-    <div class="g-item reveal d3">
-      <div class="g-ph"><div class="ico">💎</div><div class="lbl">Add Your Photo</div></div>
-      <div class="g-overlay"><span>Ceramic Coating</span></div>
-    </div>
-    <div class="g-item reveal d4">
-      <div class="g-ph"><div class="ico">🔧</div><div class="lbl">Add Your Photo</div></div>
-      <div class="g-overlay"><span>Paint Correction</span></div>
-    </div>
-    <div class="g-item reveal d5">
-      <div class="g-ph"><div class="ico">🚐</div><div class="lbl">Add Your Photo</div></div>
-      <div class="g-overlay"><span>RV Detailing</span></div>
-    </div>
-  </div>
-  <p class="gallery-cta reveal">
-    See more of our work on <a href="https://www.instagram.com/ad_detaiils._/" target="_blank" rel="noopener">Instagram @ad_detaiils._</a>
-  </p>
-</section>
 
 <!-- ── REVIEWS ───────────────────────────────────────────────── -->
 <section id="reviews">
@@ -1120,10 +1098,10 @@
     <div class="ci"><span class="ico">📞</span><a href="tel:+15145039296">514-503-9296</a></div>
   </div>
   <div class="social-row reveal d3">
-    <a href="https://www.instagram.com/ad_detaiils._/" target="_blank" rel="noopener" class="soc-btn">
+    <a href="https://www.instagram.com/ad_details._/" target="_blank" rel="noopener" class="soc-btn">
       <span class="si">📷</span> Instagram
     </a>
-    <a href="https://www.tiktok.com/@ad_details.0" target="_blank" rel="noopener" class="soc-btn">
+    <a href="https://www.tiktok.com/@ad_detaling.0" target="_blank" rel="noopener" class="soc-btn">
       <span class="si">🎵</span> TikTok
     </a>
     <a href="https://www.facebook.com/ADdetailing" target="_blank" rel="noopener" class="soc-btn">
