@@ -222,11 +222,34 @@
 
     /* ── SERVICES ────────────────────────────────────────── */
     #services { background: var(--dark); }
+
+    .svc-tabs {
+      display: flex; justify-content: center; gap: .75rem;
+      margin-bottom: 3rem; flex-wrap: wrap;
+    }
+    .tab-btn {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: .78rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: .65rem 1.8rem; border-radius: 4px;
+      border: 1px solid rgba(201,162,39,.3);
+      background: transparent; color: var(--gray);
+      cursor: pointer; transition: all .25s;
+    }
+    .tab-btn:hover  { border-color: var(--gold); color: var(--white); }
+    .tab-btn.active { background: var(--gold); border-color: var(--gold); color: #000; }
+
+    .tab-pane { display: none; }
+    .tab-pane.active { display: grid; }
+
     .services-grid {
-      display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.4rem; max-width: 1200px; margin: 0 auto;
       perspective: 1200px;
+    }
+    .addons-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem; max-width: 800px; margin: 0 auto;
     }
     .svc-card {
       background: var(--dark-2);
@@ -249,7 +272,20 @@
     .svc-card h3 {
       font-size: 1.05rem; font-weight: 800;
       text-transform: uppercase; letter-spacing: 1px;
-      color: var(--white); margin-bottom: .7rem;
+      color: var(--white); margin-bottom: .4rem;
+    }
+    .svc-meta {
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1rem; flex-wrap: wrap;
+    }
+    .svc-price {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.3rem; font-weight: 900; color: var(--gold);
+    }
+    .svc-duration {
+      font-size: .75rem; color: var(--gray);
+      background: rgba(255,255,255,.06);
+      padding: .2rem .6rem; border-radius: 20px;
     }
     .svc-card > p { font-size: .88rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.2rem; }
     .svc-card ul { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
@@ -258,12 +294,25 @@
       display: flex; align-items: center; gap: .5rem;
     }
     .svc-card ul li::before { content: '✦'; color: var(--gold); font-size: .58rem; flex-shrink: 0; }
+    .svc-book-link {
+      display: inline-block; margin-top: 1.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--gold); border-bottom: 1px solid rgba(201,162,39,.4);
+      transition: color .2s, border-color .2s;
+    }
+    .svc-book-link:hover { color: var(--gold-light); border-color: var(--gold-light); }
     .svc-badge {
       position: absolute; top: 1rem; right: 1rem;
       background: var(--gold); color: #000;
       font-size: .62rem; font-weight: 800;
       letter-spacing: 1px; text-transform: uppercase;
       padding: .22rem .55rem; border-radius: 2px;
+    }
+    .svc-note {
+      text-align: center; font-size: .8rem; color: var(--gray);
+      margin-top: 2rem; font-style: italic;
     }
 
     /* ── STATS BAR ───────────────────────────────────────── */
@@ -529,11 +578,42 @@
     <h2 class="stitle">Our <span class="gold">Services</span></h2>
     <div class="sdivider"></div>
   </div>
-  <div class="services-grid">
+
+  <!-- Tab buttons -->
+  <div class="svc-tabs reveal">
+    <button class="tab-btn active" data-tab="standard">Services</button>
+    <button class="tab-btn" data-tab="premium">Premium</button>
+    <button class="tab-btn" data-tab="addons">Add-Ons</button>
+  </div>
+
+  <!-- Standard Services -->
+  <div class="tab-pane active services-grid" id="tab-standard">
 
     <div class="svc-card reveal d1">
+      <span class="svc-icon">🚗</span>
+      <h3>Full Detail</h3>
+      <div class="svc-meta">
+        <span class="svc-price">$199.99</span>
+        <span class="svc-duration">⏱ 3.5 hrs</span>
+      </div>
+      <p>The complete package — interior and exterior done right, top to bottom.</p>
+      <ul>
+        <li>Full interior deep clean</li>
+        <li>Steam cleaning &amp; sanitizing</li>
+        <li>Hand wash &amp; blow dry</li>
+        <li>Tire &amp; wheel detail</li>
+        <li>Paint sealant &amp; wax</li>
+      </ul>
+      <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
+    </div>
+
+    <div class="svc-card reveal d2">
       <span class="svc-icon">🪣</span>
-      <h3>Interior Detailing</h3>
+      <h3>Full Interior Detail</h3>
+      <div class="svc-meta">
+        <span class="svc-price">$139.99</span>
+        <span class="svc-duration">⏱ 2.5 hrs</span>
+      </div>
       <p>Full deep clean of every surface inside your vehicle — spotless and fresh.</p>
       <ul>
         <li>Full vacuum (seats, trunk, mats)</li>
@@ -542,12 +622,17 @@
         <li>Leather conditioning</li>
         <li>Interior glass cleaning</li>
       </ul>
+      <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
     </div>
 
-    <div class="svc-card reveal d2">
+    <div class="svc-card reveal d3">
       <span class="svc-icon">✨</span>
-      <h3>Exterior Detailing</h3>
-      <p>Hand-wash, decontamination, and protection to make your paint pop.</p>
+      <h3>Full Exterior Detail</h3>
+      <div class="svc-meta">
+        <span class="svc-price">$69.99</span>
+        <span class="svc-duration">⏱ 2 hrs</span>
+      </div>
+      <p>Hand-wash, decontamination, and protection to make your paint shine.</p>
       <ul>
         <li>Hand wash &amp; blow dry</li>
         <li>Clay bar decontamination</li>
@@ -555,63 +640,112 @@
         <li>Paint sealant / wax</li>
         <li>Exterior glass treatment</li>
       </ul>
+      <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
+    </div>
+
+  </div>
+
+  <!-- Premium Services -->
+  <div class="tab-pane services-grid" id="tab-premium">
+
+    <div class="svc-card reveal d1">
+      <span class="svc-icon">💎</span>
+      <h3>5-Year Ceramic Coating</h3>
+      <div class="svc-meta">
+        <span class="svc-price">$1,299.99</span>
+        <span class="svc-duration">⏱ 12 hrs</span>
+      </div>
+      <p>Our top-tier ceramic protection — long-lasting hydrophobic shield against UV, chemicals, and contaminants.</p>
+      <ul>
+        <li>Full paint prep &amp; decontamination</li>
+        <li>Professional 5-year ceramic coat</li>
+        <li>Hydrophobic water-bead effect</li>
+        <li>UV &amp; chemical resistance</li>
+        <li>Gloss enhancement</li>
+      </ul>
+      <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
+      <span class="svc-badge">Best Value</span>
+    </div>
+
+    <div class="svc-card reveal d2">
+      <span class="svc-icon">💠</span>
+      <h3>2-Year Ceramic Coating</h3>
+      <div class="svc-meta">
+        <span class="svc-price">$999.99</span>
+        <span class="svc-duration">⏱ 12 hrs</span>
+      </div>
+      <p>Professional ceramic protection with 2-year durability — excellent results at a lower entry point.</p>
+      <ul>
+        <li>Full paint prep &amp; decontamination</li>
+        <li>Professional 2-year ceramic coat</li>
+        <li>Hydrophobic water-bead effect</li>
+        <li>UV &amp; chemical resistance</li>
+        <li>Paint gloss boost</li>
+      </ul>
+      <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
+      <span class="svc-badge">Premium</span>
     </div>
 
     <div class="svc-card reveal d3">
       <span class="svc-icon">🔧</span>
-      <h3>Paint Correction</h3>
-      <p>Remove swirl marks, light scratches, and oxidation for a flawless factory look.</p>
+      <h3>2-Step Paint Correction</h3>
+      <div class="svc-meta">
+        <span class="svc-price">$449.99</span>
+        <span class="svc-duration">⏱ 4 hrs</span>
+      </div>
+      <p>Remove swirl marks, light scratches, and oxidation for a flawless factory finish.</p>
       <ul>
-        <li>Single &amp; multi-stage polish</li>
+        <li>Paint depth measurement</li>
+        <li>Stage 1 cut &amp; stage 2 polish</li>
         <li>Swirl &amp; scratch removal</li>
         <li>Oxidation treatment</li>
-        <li>Paint depth measurement</li>
         <li>Final seal &amp; protection</li>
       </ul>
+      <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
       <span class="svc-badge">Premium</span>
-    </div>
-
-    <div class="svc-card reveal d4">
-      <span class="svc-icon">💎</span>
-      <h3>Ceramic Coating</h3>
-      <p>Professional nano-ceramic protection — repels water, UV, and contaminants for years.</p>
-      <ul>
-        <li>Paint prep &amp; decontamination</li>
-        <li>Professional-grade ceramic coat</li>
-        <li>Hydrophobic water-bead effect</li>
-        <li>UV &amp; chemical resistance</li>
-        <li>Multi-year durability</li>
-      </ul>
-      <span class="svc-badge">Premium</span>
-    </div>
-
-    <div class="svc-card reveal d5">
-      <span class="svc-icon">🚐</span>
-      <h3>RV Detailing</h3>
-      <p>Full interior and exterior detailing for motorhomes, campers, and trailers.</p>
-      <ul>
-        <li>Roof &amp; exterior wash</li>
-        <li>Interior deep clean</li>
-        <li>Oxidation &amp; stain removal</li>
-        <li>Sealant &amp; wax protection</li>
-        <li>Wheel &amp; trim detail</li>
-      </ul>
-    </div>
-
-    <div class="svc-card reveal d1">
-      <span class="svc-icon">➕</span>
-      <h3>Add-Ons</h3>
-      <p>Upgrade any package with our specialty treatments for a complete result.</p>
-      <ul>
-        <li>Engine bay cleaning</li>
-        <li>Odour &amp; ozone elimination</li>
-        <li>Headlight restoration</li>
-        <li>Pet hair removal</li>
-        <li>Fabric protection spray</li>
-      </ul>
     </div>
 
   </div>
+
+  <!-- Add-Ons -->
+  <div class="tab-pane addons-grid" id="tab-addons">
+
+    <div class="svc-card reveal d1">
+      <span class="svc-icon">🔩</span>
+      <h3>Engine Bay Cleaning</h3>
+      <div class="svc-meta">
+        <span class="svc-price">$50</span>
+        <span class="svc-duration">⏱ 30 min</span>
+      </div>
+      <p>Degrease and detail your engine bay for a clean, show-ready look under the hood.</p>
+      <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Add to booking →</a>
+    </div>
+
+    <div class="svc-card reveal d2">
+      <span class="svc-icon">🪄</span>
+      <h3>Protector Wax</h3>
+      <div class="svc-meta">
+        <span class="svc-price">$20</span>
+        <span class="svc-duration">⏱ 30 min</span>
+      </div>
+      <p>Extra layer of protective wax applied on top of any service for added shine and longevity.</p>
+      <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Add to booking →</a>
+    </div>
+
+    <div class="svc-card reveal d3">
+      <span class="svc-icon">🐾</span>
+      <h3>Pet Hair Removal</h3>
+      <div class="svc-meta">
+        <span class="svc-price">$25</span>
+        <span class="svc-duration">⏱ 30 min</span>
+      </div>
+      <p>Specialized removal of stubborn pet hair from seats, carpets, and all upholstery.</p>
+      <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Add to booking →</a>
+    </div>
+
+  </div>
+
+  <p class="svc-note reveal">* Extra fees may apply for excessive pet hair or severe vehicle conditions.</p>
 </section>
 
 <!-- ── STATS BAR ───────────────────────────────────────────── -->
@@ -748,7 +882,7 @@
   </div>
   <div class="contact-row reveal d2">
     <div class="ci"><span class="ico">📍</span><span>153 rue Jean-Talon, Châteauguay, QC</span></div>
-    <div class="ci"><span class="ico">🕐</span><span>Open until 20:00</span></div>
+    <div class="ci"><span class="ico">🕐</span><span>8:00 AM – 8:00 PM &nbsp;·&nbsp; 7 days a week</span></div>
     <div class="ci"><span class="ico">📞</span><a href="tel:+15145039296">514-503-9296</a></div>
   </div>
   <div class="social-row reveal d3">
@@ -880,6 +1014,16 @@ document.querySelectorAll('.svc-card').forEach(card => {
     card.style.transform = `translateY(-6px) rotateX(${-y * 7}deg) rotateY(${x * 7}deg)`;
   });
   card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
+// ── Service tabs ────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
 });
 
 // ── Active nav link on scroll ───────────────────────────────
