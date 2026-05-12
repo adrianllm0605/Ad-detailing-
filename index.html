@@ -273,7 +273,7 @@
       50%      { transform: translateX(-50%) translateY(8px); }
     }
 
-    /* ── SECTION SHARED ─────────────────────────────────── */
+    /* ── SECTION SHARED ──────────────────────────────────────── */
     section { padding: 7rem 2rem; }
     .section-hd { text-align: center; margin-bottom: 4.5rem; }
     .stag {
@@ -295,7 +295,7 @@
     }
     .about-text .sdivider { margin: 1.6rem 0 0; }
 
-    /* ── SERVICES ────────────────────────────────────────── */
+    /* ── SERVICES ────────────────────────────────────────────── */
     #services { background: var(--dark); }
 
     .svc-tabs {
@@ -403,7 +403,7 @@
       margin-top: 2.5rem; font-style: italic;
     }
 
-    /* ── STATS BAR ───────────────────────────────────────── */
+    /* ── STATS BAR ───────────────────────────────────────────── */
     #stats {
       position: relative;
       background: var(--dark-2);
@@ -439,7 +439,7 @@
       .stat-item:last-child { border-bottom: none; }
     }
 
-    /* ── ABOUT ───────────────────────────────────────────── */
+    /* ── ABOUT ─────────────────────────────────────────────────── */
     #about { background: var(--dark-2); position: relative; overflow: hidden; }
     #about::before {
       content: ''; position: absolute; right: -200px; top: -200px;
@@ -496,7 +496,7 @@
     .hl h4 { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: .2rem; color: var(--white); }
     .hl p  { font-size: .75rem; color: rgba(255,255,255,.38); margin: 0; line-height: 1.5; }
 
-    /* ── GALLERY ─────────────────────────────────────────── */
+    /* ── GALLERY ─────────────────────────────────────────────────── */
     #gallery { background: var(--dark); }
     .gallery-grid {
       display: grid;
@@ -537,7 +537,7 @@
     .gallery-cta a { color: var(--gold); font-weight: 600; transition: color .2s; }
     .gallery-cta a:hover { color: var(--gold-light); }
 
-    /* ── REVIEWS ─────────────────────────────────────────── */
+    /* ── REVIEWS ─────────────────────────────────────────────────── */
     #reviews { background: var(--dark-3); }
     .reviews-grid {
       display: grid;
@@ -578,7 +578,7 @@
     .rv-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .85rem; }
     .rv-date { font-size: .7rem; color: rgba(255,255,255,.3); margin-top: .15rem; }
 
-    /* ── BOOKING ─────────────────────────────────────────── */
+    /* ── BOOKING ─────────────────────────────────────────────────── */
     #booking { background: var(--dark-2); text-align: center; position: relative; overflow: hidden; }
     #booking::before {
       content: ''; position: absolute; inset: 0;
@@ -610,7 +610,7 @@
     .soc-btn:hover { border-color: rgba(201,162,39,.4); background: rgba(201,162,39,.06); color: var(--white); transform: translateY(-2px); }
     .soc-btn .si { font-size: 1rem; }
 
-    /* ── FOOTER ─────────────────────────────────────────── */
+    /* ── FOOTER ─────────────────────────────────────────────────── */
     footer {
       background: #030303;
       border-top: 1px solid rgba(255,255,255,.05);
@@ -666,7 +666,7 @@
     .footer-socials a { font-size: .72rem; color: rgba(255,255,255,.22); transition: color .2s; }
     .footer-socials a:hover { color: var(--gold); }
 
-    /* ── FLOATING CTA ────────────────────────────────────── */
+    /* ── FLOATING CTA ────────────────────────────────────────────── */
     #fab {
       position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
       background: var(--gold); color: #000;
@@ -679,7 +679,7 @@
     }
     #fab:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 8px 36px rgba(201,162,39,.55); }
 
-    /* ── REVEAL ──────────────────────────────────────────── */
+    /* ── REVEAL ──────────────────────────────────────────────────── */
     .reveal       { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
     .reveal-l     { opacity: 0; transform: translateX(-40px); transition: opacity .75s ease, transform .75s ease; }
     .reveal-r     { opacity: 0; transform: translateX(40px);  transition: opacity .75s ease, transform .75s ease; }
@@ -690,14 +690,14 @@
     .d4 { transition-delay: .4s; }
     .d5 { transition-delay: .5s; }
 
-    /* ── COUNTER PULSE ──────────────────────────────────────── */
+    /* ── COUNTER PULSE ───────────────────────────────────────────────── */
     @keyframes countPulse {
       0%, 100% { transform: scale(1); }
       45% { transform: scale(1.16); filter: drop-shadow(0 0 16px rgba(255,215,0,.85)); }
     }
     .count-done { animation: countPulse .65s cubic-bezier(.34,1.56,.64,1); }
 
-    /* ── SPLASH ──────────────────────────────────────────── */
+    /* ── SPLASH ──────────────────────────────────────────────────── */
     #splash {
       position: fixed; inset: 0; z-index: 9999;
       background: #040404;
@@ -784,7 +784,7 @@
 </head>
 <body>
 
-<!-- ── SPLASH ──────────────────────────────────────────────── -->
+<!-- ── SPLASH ──────────────────────────────────────────────────────── -->
 <div id="splash">
   <img class="spl-logo" src="logo.png" alt="AD Detailing Logo"
        onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
@@ -846,12 +846,12 @@
     <div class="spl-dline spl-dline-r"></div>
   </div>
   <p class="spl-name"><span class="gold">AD</span> Detailing</p>
-  <p class="spl-loc">Ch&acirc;teauguay &nbsp;&middot;&nbsp; Rive-Sud MTL</p>
+  <p class="spl-loc">Châteauguay &nbsp;&middot;&nbsp; Rive-Sud MTL</p>
   <div class="spl-bar"></div>
   <p class="spl-hint">Tap anywhere to enter</p>
 </div>
 
-<!-- ── NAVBAR ──────────────────────────────────────────────── -->
+<!-- ── NAVBAR ──────────────────────────────────────────────────────── -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
     <img src="logo.png" alt="AD Detailing" class="nav-logo-img"
@@ -872,13 +872,13 @@
   </div>
 </nav>
 
-<!-- ── HERO ────────────────────────────────────────────────── -->
+<!-- ── HERO ────────────────────────────────────────────────────────────── -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-split">
     <div class="hero-left">
-      <div class="eyebrow reveal">Rive-Sud MTL &nbsp;·&nbsp; Ch&acirc;teauguay, QC</div>
+      <div class="eyebrow reveal">Rive-Sud MTL &nbsp;·&nbsp; Châteauguay, QC</div>
       <h1 class="hero-title reveal d1">
         Premium<br>
         <span class="gold">Car &amp; RV</span><br>
@@ -958,7 +958,7 @@
   <div class="scroll-hint"><span>Scroll</span><div class="arrow"></div></div>
 </section>
 
-<!-- ── SERVICES ─────────────────────────────────────────────── -->
+<!-- ── SERVICES ───────────────────────────────────────────────────────── -->
 <section id="services">
   <div class="section-hd reveal">
     <span class="stag">What We Offer</span>
@@ -1118,7 +1118,7 @@
   <p class="svc-note reveal">* Extra fees may apply for excessive pet hair or severe vehicle conditions.</p>
 </section>
 
-<!-- ── STATS BAR ───────────────────────────────────────────── -->
+<!-- ── STATS BAR ───────────────────────────────────────────────────────── -->
 <div id="stats">
   <div class="stats-row">
     <div class="stat-item reveal">
@@ -1140,7 +1140,7 @@
   </div>
 </div>
 
-<!-- ── ABOUT ────────────────────────────────────────────────── -->
+<!-- ── ABOUT ────────────────────────────────────────────────────────────── -->
 <section id="about">
   <div class="about-wrap">
     <div class="reveal-l" style="display:flex;justify-content:center;">
@@ -1160,10 +1160,10 @@
       </div>
       <p>At AD Detailing, we are a South Shore–based business dedicated to delivering premium car detailing services. Our mission is simple: provide high-quality results that make your vehicle look and feel brand new.</p>
       <p>We take pride in our attention to detail, using professional techniques and top-tier products to ensure every vehicle — car or RV — gets treated with care and precision.</p>
-      <p>Located in Ch&acirc;teauguay, we proudly serve the entire Rive-Sud MTL area. Whether it's a daily driver or a showroom piece, we treat every vehicle like our own.</p>
+      <p>Located in Châteauguay, we proudly serve the entire Rive-Sud MTL area. Whether it’s a daily driver or a showroom piece, we treat every vehicle like our own.</p>
       <div class="highlights">
         <div class="hl"><span class="hl-icon">🛡️</span><div><h4>Quality Products</h4><p>Professional-grade products only</p></div></div>
-        <div class="hl"><span class="hl-icon">📍</span><div><h4>Ch&acirc;teauguay, QC</h4><p>Serving all of Rive-Sud MTL</p></div></div>
+        <div class="hl"><span class="hl-icon">📍</span><div><h4>Châteauguay, QC</h4><p>Serving all of Rive-Sud MTL</p></div></div>
         <div class="hl"><span class="hl-icon">⭐</span><div><h4>5-Star Rated</h4><p>Consistent top reviews</p></div></div>
         <div class="hl"><span class="hl-icon">📅</span><div><h4>Easy Booking</h4><p>Online &amp; phone appointments</p></div></div>
       </div>
@@ -1171,7 +1171,7 @@
   </div>
 </section>
 
-<!-- ── REVIEWS ───────────────────────────────────────────────── -->
+<!-- ── REVIEWS ────────────────────────────────────────────────────────────── -->
 <section id="reviews">
   <div class="section-hd reveal">
     <span class="stag">Client Reviews</span>
@@ -1209,7 +1209,7 @@
   </div>
 </section>
 
-<!-- ── BOOKING CTA ────────────────────────────────────────────── -->
+<!-- ── BOOKING CTA ─────────────────────────────────────────────────────────── -->
 <section id="booking">
   <div class="section-hd reveal">
     <span class="stag">Ready to Book?</span>
@@ -1222,7 +1222,7 @@
     <a href="tel:+15145039296" class="btn-outline">&#128222; Call 514-503-9296</a>
   </div>
   <div class="contact-row reveal d2">
-    <div class="ci"><span class="ico">📍</span><span>153 rue Jean-Talon, Ch&acirc;teauguay, QC</span></div>
+    <div class="ci"><span class="ico">📍</span><span>153 rue Jean-Talon, Châteauguay, QC</span></div>
     <div class="ci"><span class="ico">🕐</span><span>8:00 AM – 8:00 PM &nbsp;·&nbsp; 7 days a week</span></div>
     <div class="ci"><span class="ico">📞</span><a href="tel:+15145039296">514-503-9296</a></div>
   </div>
@@ -1239,7 +1239,7 @@
   </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<!-- ── FOOTER ───────────────────────────────────────────────────────────────── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -1249,7 +1249,7 @@
         <div class="fb-badge" style="display:none">AD</div>
         <span class="fb-name"><span class="gold">AD</span> Detailing</span>
       </div>
-      <p>Premium car &amp; RV detailing on the South Shore of Montreal. Serving Ch&acirc;teauguay and all of Rive-Sud MTL.</p>
+      <p>Premium car &amp; RV detailing on the South Shore of Montreal. Serving Châteauguay and all of Rive-Sud MTL.</p>
     </div>
     <div class="footer-col">
       <h5>Quick Links</h5>
@@ -1265,7 +1265,7 @@
       <ul>
         <li><a href="tel:+15145039296">514-503-9296</a></li>
         <li><a href="https://addetailing.setmore.com" target="_blank" rel="noopener">addetailing.setmore.com</a></li>
-        <li><a href="#">153 rue Jean-Talon<br>Ch&acirc;teauguay, QC</a></li>
+        <li><a href="#">153 rue Jean-Talon<br>Châteauguay, QC</a></li>
       </ul>
     </div>
   </div>
@@ -1279,7 +1279,7 @@
   </div>
 </footer>
 
-<!-- ── FLOATING CTA ───────────────────────────────────────────── -->
+<!-- ── FLOATING CTA ───────────────────────────────────────────────────────────────── -->
 <a id="fab" href="https://addetailing.setmore.com" target="_blank" rel="noopener">
   📅 Book Now
 </a>
