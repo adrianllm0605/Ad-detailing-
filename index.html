@@ -624,80 +624,92 @@
     /* ── SPLASH ──────────────────────────────────────────── */
     #splash {
       position: fixed; inset: 0; z-index: 9999;
-      background: #080808;
+      background: #060606;
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 1.4rem;
-      transition: opacity .8s ease;
-      cursor: pointer;
+      align-items: center; justify-content: center;
+      transition: opacity .9s ease;
+      cursor: pointer; overflow: hidden;
     }
     #splash.out { opacity: 0; pointer-events: none; }
-
+    #splash::before {
+      content: ''; position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,162,39,.07) 0%, transparent 65%);
+      top: 50%; left: 50%; transform: translate(-50%, -55%);
+      pointer-events: none;
+    }
+    #splash::after {
+      content: ''; position: absolute;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(30,107,255,.05) 0%, transparent 65%);
+      top: 60%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
     .spl-logo {
-      filter: drop-shadow(0 0 30px rgba(201,162,39,.25))
-              drop-shadow(0 0 60px rgba(30,107,255,.15));
-      animation: splPop .75s cubic-bezier(.34,1.56,.64,1) both;
+      width: 260px; height: auto;
+      filter: drop-shadow(0 0 36px rgba(201,162,39,.38))
+              drop-shadow(0 0 72px rgba(30,107,255,.2));
+      animation: splPop .95s cubic-bezier(.34,1.56,.64,1) both;
+      margin-bottom: 1.8rem; position: relative; z-index: 1;
     }
     @keyframes splPop {
-      from { transform: scale(.6); opacity: 0; }
-      to   { transform: scale(1);  opacity: 1; }
+      from { transform: scale(.5) rotate(-4deg); opacity: 0; }
+      to   { transform: scale(1)  rotate(0deg);  opacity: 1; }
     }
-    .spl-tag {
+    .spl-divider {
+      display: flex; align-items: center; gap: .85rem;
+      animation: splUp .65s ease .4s both;
+      margin-bottom: .85rem; z-index: 1;
+    }
+    .spl-dline {
+      width: 60px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .spl-dline-r { background: linear-gradient(to left, transparent, var(--gold)); }
+    .spl-diamond {
+      width: 7px; height: 7px; background: var(--gold);
+      transform: rotate(45deg);
+      box-shadow: 0 0 10px rgba(201,162,39,.7);
+    }
+    .spl-name {
       font-family: 'Montserrat', sans-serif;
-      font-size: .7rem; font-weight: 700;
-      letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold);
-      animation: splUp .7s ease .25s both;
+      font-size: 1.55rem; font-weight: 900;
+      letter-spacing: 8px; text-transform: uppercase;
+      color: var(--white);
+      animation: splUp .65s ease .5s both;
+      margin-bottom: .4rem; z-index: 1;
     }
-    .spl-socials {
-      display: flex; gap: 1.25rem;
-      animation: splUp .7s ease .4s both;
-    }
-    .spl-soc {
-      display: flex; flex-direction: column;
-      align-items: center; gap: .35rem;
+    .spl-name .gold { color: var(--gold); }
+    .spl-loc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .62rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
       color: var(--gray);
-      transition: color .2s, transform .2s;
-    }
-    .spl-soc:hover { color: var(--gold); transform: translateY(-3px); }
-    .spl-ico {
-      width: 46px; height: 46px;
-      border: 1px solid rgba(201,162,39,.28);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color .2s, background .2s, box-shadow .2s;
-    }
-    .spl-soc:hover .spl-ico {
-      border-color: var(--gold);
-      background: rgba(201,162,39,.08);
-      box-shadow: 0 4px 18px rgba(201,162,39,.22);
-    }
-    .spl-soc svg { width: 22px; height: 22px; }
-    .spl-soc span {
-      font-size: .6rem; text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-family: 'Montserrat', sans-serif; font-weight: 600;
+      animation: splUp .65s ease .6s both;
+      margin-bottom: 2.4rem; z-index: 1;
     }
     .spl-bar {
-      width: 130px; height: 3px;
-      background: rgba(255,255,255,.08);
+      width: 170px; height: 2px;
+      background: rgba(255,255,255,.07);
       border-radius: 2px; overflow: hidden;
-      animation: splUp .7s ease .55s both;
+      animation: splUp .65s ease .7s both;
+      margin-bottom: .85rem; z-index: 1;
     }
     .spl-bar::after {
       content: ''; display: block;
       height: 100%; width: 0%;
       background: linear-gradient(90deg, var(--blue), var(--gold));
       border-radius: 2px;
-      animation: splProg 2.8s linear .8s forwards;
+      animation: splProg 2.7s linear .95s forwards;
     }
     @keyframes splProg { from { width:0% } to { width:100% } }
     .spl-hint {
-      font-size: .6rem; color: rgba(255,255,255,.22);
-      text-transform: uppercase; letter-spacing: 2px;
-      animation: splUp .7s ease .65s both;
+      font-size: .57rem; color: rgba(255,255,255,.18);
+      text-transform: uppercase; letter-spacing: 2.5px;
+      animation: splUp .65s ease .78s both; z-index: 1;
     }
     @keyframes splUp {
-      from { opacity: 0; transform: translateY(14px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
   </style>
@@ -707,23 +719,19 @@
 <!-- ── SPLASH ──────────────────────────────────────────────── -->
 <div id="splash">
 
-  <!-- Logo: uses logo.png when available, falls back to SVG -->
-  <img class="spl-logo" src="logo.png" alt="AD Detailing Logo" width="200"
+  <!-- Real logo — falls back to SVG if logo.png not yet uploaded -->
+  <img class="spl-logo" src="logo.png" alt="AD Detailing Logo"
        onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block'">
-  <svg class="spl-logo" style="display:none" width="200" height="218" viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
+  <svg class="spl-logo" style="display:none" viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="sgl" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#FFE566"/>
-        <stop offset="50%" stop-color="#C9A227"/>
-        <stop offset="100%" stop-color="#7A5F0F"/>
+        <stop offset="0%" stop-color="#FFE566"/><stop offset="50%" stop-color="#C9A227"/><stop offset="100%" stop-color="#7A5F0F"/>
       </linearGradient>
       <linearGradient id="sbl" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#5FC0FF"/>
-        <stop offset="100%" stop-color="#0F3ABA"/>
+        <stop offset="0%" stop-color="#5FC0FF"/><stop offset="100%" stop-color="#0F3ABA"/>
       </linearGradient>
       <radialGradient id="sbg" cx="35%" cy="30%" r="65%">
-        <stop offset="0%" stop-color="#1c1c1c"/>
-        <stop offset="100%" stop-color="#050505"/>
+        <stop offset="0%" stop-color="#1c1c1c"/><stop offset="100%" stop-color="#050505"/>
       </radialGradient>
       <filter id="sgw" x="-20%" y="-20%" width="140%" height="140%">
         <feGaussianBlur stdDeviation="2.5" result="b"/>
@@ -731,105 +739,60 @@
       </filter>
       <polygon id="sstar" points="0,-5 1.18,-1.62 4.76,-1.55 1.90,0.62 2.94,4.05 0,2.5 -2.94,4.05 -1.90,0.62 -4.76,-1.55 -1.18,-1.62" fill="#C9A227"/>
     </defs>
-
-    <!-- Background disc -->
     <circle cx="110" cy="132" r="106" fill="url(#sbg)"/>
-    <!-- Outer gold ring -->
     <circle cx="110" cy="132" r="105" fill="none" stroke="url(#sgl)" stroke-width="2.5"/>
-    <!-- Inner gold ring -->
     <circle cx="110" cy="132" r="95" fill="none" stroke="url(#sgl)" stroke-width="1.2" opacity="0.6"/>
-
-    <!-- 12 stars around ring -->
-    <use href="#sstar" transform="translate(110,27)"/>
-    <use href="#sstar" transform="translate(162.5,41)"/>
-    <use href="#sstar" transform="translate(201,79)"/>
-    <use href="#sstar" transform="translate(215,132)"/>
-    <use href="#sstar" transform="translate(201,185)"/>
-    <use href="#sstar" transform="translate(162.5,223)"/>
-    <use href="#sstar" transform="translate(110,237)"/>
-    <use href="#sstar" transform="translate(57.5,223)"/>
-    <use href="#sstar" transform="translate(19,185)"/>
-    <use href="#sstar" transform="translate(5,132)"/>
-    <use href="#sstar" transform="translate(19,79)"/>
-    <use href="#sstar" transform="translate(57.5,41)"/>
-
-    <!-- Crown -->
+    <use href="#sstar" transform="translate(110,27)"/><use href="#sstar" transform="translate(162.5,41)"/>
+    <use href="#sstar" transform="translate(201,79)"/><use href="#sstar" transform="translate(215,132)"/>
+    <use href="#sstar" transform="translate(201,185)"/><use href="#sstar" transform="translate(162.5,223)"/>
+    <use href="#sstar" transform="translate(110,237)"/><use href="#sstar" transform="translate(57.5,223)"/>
+    <use href="#sstar" transform="translate(19,185)"/><use href="#sstar" transform="translate(5,132)"/>
+    <use href="#sstar" transform="translate(19,79)"/><use href="#sstar" transform="translate(57.5,41)"/>
     <g transform="translate(110,24)" filter="url(#sgw)">
       <path d="M-22,17 L-22,5 L-12,-6 L-5,3 L0,-15 L5,3 L12,-6 L22,5 L22,17 Z" fill="url(#sgl)"/>
-      <path d="M-22,13 L22,13" stroke="#7A5F0F" stroke-width="1" opacity="0.5"/>
-      <circle cx="0"   cy="-14" r="3"   fill="#FFE566"/>
-      <circle cx="-12" cy="-5"  r="2"   fill="#FFE566"/>
-      <circle cx="12"  cy="-5"  r="2"   fill="#FFE566"/>
+      <circle cx="0" cy="-14" r="3" fill="#FFE566"/><circle cx="-12" cy="-5" r="2" fill="#FFE566"/><circle cx="12" cy="-5" r="2" fill="#FFE566"/>
     </g>
-
-    <!-- Blue car (front view) -->
     <g transform="translate(110,108)">
       <path d="M-34,-18 Q-20,-32 0,-34 Q20,-32 34,-18" fill="#0F38C0"/>
       <path d="M-33,-17 Q-20,-30 0,-32 Q20,-30 33,-17 L26,-12 Q13,-24 0,-26 Q-13,-24 -26,-12 Z" fill="#5BB8FF" opacity="0.72"/>
       <path d="M-52,-12 L-34,-18 L34,-18 L52,-12 L50,4 Q25,0 0,0 Q-25,0 -50,4 Z" fill="url(#sbl)"/>
       <path d="M-56,2 Q-38,-3 0,-4 Q38,-3 56,2 L54,18 Q28,14 0,13 Q-28,14 -54,18 Z" fill="url(#sbl)"/>
       <path d="M-56,2 Q-52,-6 -44,-6 L-34,-2 Q-42,4 -50,14 Z" fill="#A8DCFF" opacity="0.85"/>
-      <path d="M56,2 Q52,-6 44,-6 L34,-2 Q42,4 50,14 Z"   fill="#A8DCFF" opacity="0.85"/>
+      <path d="M56,2 Q52,-6 44,-6 L34,-2 Q42,4 50,14 Z" fill="#A8DCFF" opacity="0.85"/>
       <circle cx="-18" cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
-      <circle cx="-6"  cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
-      <circle cx="6"   cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
-      <circle cx="18"  cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
-      <rect x="-24" y="14" width="48" height="7" rx="2.5" fill="#08184A" opacity="0.7"/>
+      <circle cx="-6" cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
+      <circle cx="6" cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
+      <circle cx="18" cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
     </g>
-
-    <!-- AD letters -->
-    <text x="110" y="182" text-anchor="middle"
-          font-family="'Arial Black', Impact, sans-serif"
-          font-weight="900" font-size="64" fill="white"
-          letter-spacing="-2" filter="url(#sgw)">AD</text>
-
-    <!-- Side curls -->
+    <text x="110" y="182" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif" font-weight="900" font-size="64" fill="white" letter-spacing="-2" filter="url(#sgw)">AD</text>
     <path d="M48,166 Q56,159 53,151 Q50,143 56,140" fill="none" stroke="url(#sgl)" stroke-width="2.5" stroke-linecap="round"/>
     <path d="M172,166 Q164,159 167,151 Q170,143 164,140" fill="none" stroke="url(#sgl)" stroke-width="2.5" stroke-linecap="round"/>
-
-    <!-- DETAILING banner -->
     <path id="sbc" d="M44,194 Q110,212 176,194" fill="none"/>
     <path d="M44,194 Q110,212 176,194" fill="none" stroke="url(#sgl)" stroke-width="16" stroke-linecap="round"/>
     <path d="M44,194 Q110,212 176,194" fill="none" stroke="#050505" stroke-width="10" stroke-linecap="round"/>
-    <text font-family="'Arial', sans-serif" font-weight="800" font-size="10.5" fill="#C9A227" letter-spacing="4">
+    <text font-family="Arial,sans-serif" font-weight="800" font-size="10.5" fill="#C9A227" letter-spacing="4">
       <textPath href="#sbc" startOffset="50%" text-anchor="middle">DETAILING</textPath>
     </text>
   </svg>
 
-  <p class="spl-tag">Premium Car &amp; RV Detailing</p>
-
-  <!-- Social icons -->
-  <div class="spl-socials">
-    <a href="https://www.instagram.com/ad_details._/" target="_blank" rel="noopener" class="spl-soc">
-      <div class="spl-ico">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5"/>
-          <circle cx="12" cy="12" r="5"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-      </div>
-      <span>Instagram</span>
-    </a>
-    <a href="https://www.tiktok.com/@ad_detaling.0" target="_blank" rel="noopener" class="spl-soc">
-      <div class="spl-ico">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.93a8.2 8.2 0 0 0 4.82 1.55V7.04a4.85 4.85 0 0 1-1.06-.35z"/>
-        </svg>
-      </div>
-      <span>TikTok</span>
-    </a>
-    <a href="https://www.facebook.com/ADdetailing" target="_blank" rel="noopener" class="spl-soc">
-      <div class="spl-ico">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-        </svg>
-      </div>
-      <span>Facebook</span>
-    </a>
+  <!-- Gold divider line -->
+  <div class="spl-divider">
+    <div class="spl-dline"></div>
+    <div class="spl-diamond"></div>
+    <div class="spl-dline spl-dline-r"></div>
   </div>
 
+  <!-- Brand name -->
+  <p class="spl-name"><span class="gold">AD</span> Detailing</p>
+
+  <!-- Location tagline -->
+  <p class="spl-loc">Ch&acirc;teauguay &nbsp;&middot;&nbsp; Rive-Sud MTL</p>
+
+  <!-- Progress bar -->
   <div class="spl-bar"></div>
-  <p class="spl-hint">Tap anywhere to enter &nbsp;·&nbsp; Auto-enters in 3 s</p>
+
+  <!-- Hint -->
+  <p class="spl-hint">Tap anywhere to enter</p>
 
 </div>
 
