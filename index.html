@@ -1314,6 +1314,30 @@ const revealObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => revealObs.observe(el));
 
+// Strip dark background from logo PNGs — makes near-black pixels transparent
+function stripLogoBg(img) {
+  var thr = 55;
+  try {
+    var cvs = document.createElement('canvas');
+    cvs.width  = img.naturalWidth  || 512;
+    cvs.height = img.naturalHeight || 512;
+    var ctx = cvs.getContext('2d');
+    ctx.drawImage(img, 0, 0, cvs.width, cvs.height);
+    var d = ctx.getImageData(0, 0, cvs.width, cvs.height), px = d.data;
+    for (var i = 0; i < px.length; i += 4) {
+      var lum = Math.max(px[i], px[i+1], px[i+2]);
+      if (lum < thr) px[i+3] = Math.round((lum / thr) * 255);
+    }
+    ctx.putImageData(d, 0, 0);
+    img.src = cvs.toDataURL('image/png');
+  } catch(e) {}
+}
+document.querySelectorAll('.nav-logo-img, .hero-logo-img, .about-logo-img, .spl-logo:not(svg), .footer-brand .fb-logo img').forEach(function(img) {
+  if (img.tagName !== 'IMG') return;
+  if (img.complete && img.naturalWidth) stripLogoBg(img);
+  else img.addEventListener('load', function() { stripLogoBg(img); });
+});
+
 function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 
 function runCounter(el) {
