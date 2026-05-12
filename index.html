@@ -521,9 +521,259 @@
     .d3 { transition-delay: .3s; }
     .d4 { transition-delay: .4s; }
     .d5 { transition-delay: .5s; }
+
+    /* ── BLUE ACCENTS ────────────────────────────────────── */
+    .nav-logo .badge {
+      box-shadow: 0 0 0 2px rgba(30,107,255,.5), 0 0 16px rgba(30,107,255,.25);
+    }
+    .stag {
+      border-left: 2px solid var(--blue);
+      padding-left: .55rem;
+    }
+    #about .sdivider, #booking .sdivider {
+      background: linear-gradient(90deg, var(--blue), var(--gold), transparent);
+    }
+    .tab-btn.active {
+      box-shadow: 0 4px 18px rgba(30,107,255,.3);
+    }
+    .hero-stat .num {
+      text-shadow: 0 0 24px rgba(30,107,255,.35);
+    }
+    .rv-card:hover {
+      box-shadow: 0 8px 32px rgba(30,107,255,.12);
+      border-color: rgba(30,107,255,.3);
+    }
+    .g-item:hover {
+      border-color: rgba(30,107,255,.45);
+      box-shadow: 0 12px 36px rgba(30,107,255,.15);
+    }
+    .svc-card:hover {
+      box-shadow: 0 20px 48px rgba(0,0,0,.45), 0 0 0 1px rgba(30,107,255,.15);
+    }
+    #stats {
+      background: linear-gradient(135deg,
+        rgba(30,107,255,.07), rgba(201,162,39,.1), rgba(30,107,255,.05));
+    }
+    .stat-num { filter: drop-shadow(0 0 6px rgba(30,107,255,.25)); }
+    .btn-outline:hover {
+      border-color: var(--blue);
+      color: #a0c4ff;
+    }
+    .soc-btn:hover {
+      border-color: var(--blue);
+      background: rgba(30,107,255,.08);
+      box-shadow: 0 4px 14px rgba(30,107,255,.18);
+    }
+
+    /* ── SPLASH ──────────────────────────────────────────── */
+    #splash {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #080808;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1.4rem;
+      transition: opacity .8s ease;
+      cursor: pointer;
+    }
+    #splash.out { opacity: 0; pointer-events: none; }
+
+    .spl-logo {
+      filter: drop-shadow(0 0 30px rgba(201,162,39,.25))
+              drop-shadow(0 0 60px rgba(30,107,255,.15));
+      animation: splPop .75s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes splPop {
+      from { transform: scale(.6); opacity: 0; }
+      to   { transform: scale(1);  opacity: 1; }
+    }
+    .spl-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold);
+      animation: splUp .7s ease .25s both;
+    }
+    .spl-socials {
+      display: flex; gap: 1.25rem;
+      animation: splUp .7s ease .4s both;
+    }
+    .spl-soc {
+      display: flex; flex-direction: column;
+      align-items: center; gap: .35rem;
+      color: var(--gray);
+      transition: color .2s, transform .2s;
+    }
+    .spl-soc:hover { color: var(--gold); transform: translateY(-3px); }
+    .spl-ico {
+      width: 46px; height: 46px;
+      border: 1px solid rgba(201,162,39,.28);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+    }
+    .spl-soc:hover .spl-ico {
+      border-color: var(--gold);
+      background: rgba(201,162,39,.08);
+      box-shadow: 0 4px 18px rgba(201,162,39,.22);
+    }
+    .spl-soc svg { width: 22px; height: 22px; }
+    .spl-soc span {
+      font-size: .6rem; text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-family: 'Montserrat', sans-serif; font-weight: 600;
+    }
+    .spl-bar {
+      width: 130px; height: 3px;
+      background: rgba(255,255,255,.08);
+      border-radius: 2px; overflow: hidden;
+      animation: splUp .7s ease .55s both;
+    }
+    .spl-bar::after {
+      content: ''; display: block;
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--blue), var(--gold));
+      border-radius: 2px;
+      animation: splProg 2.8s linear .8s forwards;
+    }
+    @keyframes splProg { from { width:0% } to { width:100% } }
+    .spl-hint {
+      font-size: .6rem; color: rgba(255,255,255,.22);
+      text-transform: uppercase; letter-spacing: 2px;
+      animation: splUp .7s ease .65s both;
+    }
+    @keyframes splUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
+
+<!-- ── SPLASH ──────────────────────────────────────────────── -->
+<div id="splash">
+
+  <!-- Logo SVG recreation -->
+  <svg class="spl-logo" width="200" height="218" viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sgl" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFE566"/>
+        <stop offset="50%" stop-color="#C9A227"/>
+        <stop offset="100%" stop-color="#7A5F0F"/>
+      </linearGradient>
+      <linearGradient id="sbl" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#5FC0FF"/>
+        <stop offset="100%" stop-color="#0F3ABA"/>
+      </linearGradient>
+      <radialGradient id="sbg" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#1c1c1c"/>
+        <stop offset="100%" stop-color="#050505"/>
+      </radialGradient>
+      <filter id="sgw" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="2.5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <polygon id="sstar" points="0,-5 1.18,-1.62 4.76,-1.55 1.90,0.62 2.94,4.05 0,2.5 -2.94,4.05 -1.90,0.62 -4.76,-1.55 -1.18,-1.62" fill="#C9A227"/>
+    </defs>
+
+    <!-- Background disc -->
+    <circle cx="110" cy="132" r="106" fill="url(#sbg)"/>
+    <!-- Outer gold ring -->
+    <circle cx="110" cy="132" r="105" fill="none" stroke="url(#sgl)" stroke-width="2.5"/>
+    <!-- Inner gold ring -->
+    <circle cx="110" cy="132" r="95" fill="none" stroke="url(#sgl)" stroke-width="1.2" opacity="0.6"/>
+
+    <!-- 12 stars around ring -->
+    <use href="#sstar" transform="translate(110,27)"/>
+    <use href="#sstar" transform="translate(162.5,41)"/>
+    <use href="#sstar" transform="translate(201,79)"/>
+    <use href="#sstar" transform="translate(215,132)"/>
+    <use href="#sstar" transform="translate(201,185)"/>
+    <use href="#sstar" transform="translate(162.5,223)"/>
+    <use href="#sstar" transform="translate(110,237)"/>
+    <use href="#sstar" transform="translate(57.5,223)"/>
+    <use href="#sstar" transform="translate(19,185)"/>
+    <use href="#sstar" transform="translate(5,132)"/>
+    <use href="#sstar" transform="translate(19,79)"/>
+    <use href="#sstar" transform="translate(57.5,41)"/>
+
+    <!-- Crown -->
+    <g transform="translate(110,24)" filter="url(#sgw)">
+      <path d="M-22,17 L-22,5 L-12,-6 L-5,3 L0,-15 L5,3 L12,-6 L22,5 L22,17 Z" fill="url(#sgl)"/>
+      <path d="M-22,13 L22,13" stroke="#7A5F0F" stroke-width="1" opacity="0.5"/>
+      <circle cx="0"   cy="-14" r="3"   fill="#FFE566"/>
+      <circle cx="-12" cy="-5"  r="2"   fill="#FFE566"/>
+      <circle cx="12"  cy="-5"  r="2"   fill="#FFE566"/>
+    </g>
+
+    <!-- Blue car (front view) -->
+    <g transform="translate(110,108)">
+      <path d="M-34,-18 Q-20,-32 0,-34 Q20,-32 34,-18" fill="#0F38C0"/>
+      <path d="M-33,-17 Q-20,-30 0,-32 Q20,-30 33,-17 L26,-12 Q13,-24 0,-26 Q-13,-24 -26,-12 Z" fill="#5BB8FF" opacity="0.72"/>
+      <path d="M-52,-12 L-34,-18 L34,-18 L52,-12 L50,4 Q25,0 0,0 Q-25,0 -50,4 Z" fill="url(#sbl)"/>
+      <path d="M-56,2 Q-38,-3 0,-4 Q38,-3 56,2 L54,18 Q28,14 0,13 Q-28,14 -54,18 Z" fill="url(#sbl)"/>
+      <path d="M-56,2 Q-52,-6 -44,-6 L-34,-2 Q-42,4 -50,14 Z" fill="#A8DCFF" opacity="0.85"/>
+      <path d="M56,2 Q52,-6 44,-6 L34,-2 Q42,4 50,14 Z"   fill="#A8DCFF" opacity="0.85"/>
+      <circle cx="-18" cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
+      <circle cx="-6"  cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
+      <circle cx="6"   cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
+      <circle cx="18"  cy="4" r="6.5" fill="none" stroke="white" stroke-width="2.2"/>
+      <rect x="-24" y="14" width="48" height="7" rx="2.5" fill="#08184A" opacity="0.7"/>
+    </g>
+
+    <!-- AD letters -->
+    <text x="110" y="182" text-anchor="middle"
+          font-family="'Arial Black', Impact, sans-serif"
+          font-weight="900" font-size="64" fill="white"
+          letter-spacing="-2" filter="url(#sgw)">AD</text>
+
+    <!-- Side curls -->
+    <path d="M48,166 Q56,159 53,151 Q50,143 56,140" fill="none" stroke="url(#sgl)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M172,166 Q164,159 167,151 Q170,143 164,140" fill="none" stroke="url(#sgl)" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- DETAILING banner -->
+    <path id="sbc" d="M44,194 Q110,212 176,194" fill="none"/>
+    <path d="M44,194 Q110,212 176,194" fill="none" stroke="url(#sgl)" stroke-width="16" stroke-linecap="round"/>
+    <path d="M44,194 Q110,212 176,194" fill="none" stroke="#050505" stroke-width="10" stroke-linecap="round"/>
+    <text font-family="'Arial', sans-serif" font-weight="800" font-size="10.5" fill="#C9A227" letter-spacing="4">
+      <textPath href="#sbc" startOffset="50%" text-anchor="middle">DETAILING</textPath>
+    </text>
+  </svg>
+
+  <p class="spl-tag">Premium Car &amp; RV Detailing</p>
+
+  <!-- Social icons -->
+  <div class="spl-socials">
+    <a href="https://www.instagram.com/ad_detaiils._/" target="_blank" rel="noopener" class="spl-soc">
+      <div class="spl-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <span>Instagram</span>
+    </a>
+    <a href="https://www.tiktok.com/@ad_details.0" target="_blank" rel="noopener" class="spl-soc">
+      <div class="spl-ico">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.93a8.2 8.2 0 0 0 4.82 1.55V7.04a4.85 4.85 0 0 1-1.06-.35z"/>
+        </svg>
+      </div>
+      <span>TikTok</span>
+    </a>
+    <a href="https://www.facebook.com/ADdetailing" target="_blank" rel="noopener" class="spl-soc">
+      <div class="spl-ico">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      </div>
+      <span>Facebook</span>
+    </a>
+  </div>
+
+  <div class="spl-bar"></div>
+  <p class="spl-hint">Tap anywhere to enter &nbsp;·&nbsp; Auto-enters in 3 s</p>
+
+</div>
 
 <!-- ── NAVBAR ──────────────────────────────────────────────── -->
 <nav id="navbar">
@@ -1025,6 +1275,15 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
   });
 });
+
+// ── Splash screen ───────────────────────────────────────────
+const splash = document.getElementById('splash');
+function dismissSplash() {
+  splash.classList.add('out');
+  setTimeout(() => { splash.style.display = 'none'; }, 800);
+}
+setTimeout(dismissSplash, 3600);
+splash.addEventListener('click', dismissSplash);
 
 // ── Active nav link on scroll ───────────────────────────────
 const sections = document.querySelectorAll('section[id]');
