@@ -829,16 +829,13 @@
     <div class="sdivider"></div>
   </div>
 
-  <!-- Tab buttons -->
   <div class="svc-tabs reveal">
     <button class="tab-btn active" data-tab="standard">Services</button>
     <button class="tab-btn" data-tab="premium">Premium</button>
     <button class="tab-btn" data-tab="addons">Add-Ons</button>
   </div>
 
-  <!-- Standard Services -->
   <div class="tab-pane active services-grid" id="tab-standard">
-
     <div class="svc-card reveal d1">
       <span class="svc-icon">🚗</span>
       <h3>Full Detail</h3>
@@ -856,7 +853,6 @@
       </ul>
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
     </div>
-
     <div class="svc-card reveal d2">
       <span class="svc-icon">🪣</span>
       <h3>Full Interior Detail</h3>
@@ -874,7 +870,6 @@
       </ul>
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
     </div>
-
     <div class="svc-card reveal d3">
       <span class="svc-icon">✨</span>
       <h3>Full Exterior Detail</h3>
@@ -892,12 +887,9 @@
       </ul>
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
     </div>
-
   </div>
 
-  <!-- Premium Services -->
   <div class="tab-pane services-grid" id="tab-premium">
-
     <div class="svc-card reveal d1">
       <span class="svc-icon">💎</span>
       <h3>5-Year Ceramic Coating</h3>
@@ -916,7 +908,6 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
       <span class="svc-badge">Best Value</span>
     </div>
-
     <div class="svc-card reveal d2">
       <span class="svc-icon">💠</span>
       <h3>2-Year Ceramic Coating</h3>
@@ -935,7 +926,6 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
       <span class="svc-badge">Premium</span>
     </div>
-
     <div class="svc-card reveal d3">
       <span class="svc-icon">🔧</span>
       <h3>2-Step Paint Correction</h3>
@@ -954,12 +944,9 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
       <span class="svc-badge">Premium</span>
     </div>
-
   </div>
 
-  <!-- Add-Ons -->
   <div class="tab-pane addons-grid" id="tab-addons">
-
     <div class="svc-card reveal d1">
       <span class="svc-icon">🔩</span>
       <h3>Engine Bay Cleaning</h3>
@@ -970,7 +957,6 @@
       <p>Degrease and detail your engine bay for a clean, show-ready look under the hood.</p>
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Add to booking →</a>
     </div>
-
     <div class="svc-card reveal d2">
       <span class="svc-icon">🪄</span>
       <h3>Protector Wax</h3>
@@ -981,7 +967,6 @@
       <p>Extra layer of protective wax applied on top of any service for added shine and longevity.</p>
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Add to booking →</a>
     </div>
-
     <div class="svc-card reveal d3">
       <span class="svc-icon">🐾</span>
       <h3>Pet Hair Removal</h3>
@@ -992,7 +977,6 @@
       <p>Specialized removal of stubborn pet hair from seats, carpets, and all upholstery.</p>
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Add to booking →</a>
     </div>
-
   </div>
 
   <p class="svc-note reveal">* Extra fees may apply for excessive pet hair or severe vehicle conditions.</p>
@@ -1159,7 +1143,6 @@
 </a>
 
 <script>
-// ── Navbar + floating button on scroll ──────────────────────
 const navbar  = document.getElementById('navbar');
 const fab     = document.getElementById('fab');
 
@@ -1168,7 +1151,6 @@ window.addEventListener('scroll', () => {
   fab.style.display = scrollY > 400 ? 'flex' : 'none';
 }, { passive: true });
 
-// ── Mobile hamburger ────────────────────────────────────────
 const burger   = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
 
@@ -1183,7 +1165,6 @@ navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   navLinks.classList.remove('open');
 }));
 
-// ── Scroll reveal ───────────────────────────────────────────
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('vis'); revealObs.unobserve(e.target); }
@@ -1192,7 +1173,6 @@ const revealObs = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => revealObs.observe(el));
 
-// ── Animated counters ───────────────────────────────────────
 function runCounter(el) {
   const target = parseInt(el.dataset.count);
   const suffix = el.textContent.includes('+') ? '+' : '';
@@ -1214,7 +1194,6 @@ const cntObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 document.querySelectorAll('[data-count]').forEach(el => cntObs.observe(el));
 
-// ── Hero particle canvas ────────────────────────────────────
 const canvas = document.getElementById('hero-canvas');
 const ctx    = canvas.getContext('2d');
 
@@ -1255,7 +1234,6 @@ const particles = Array.from({ length: 130 }, () => new Particle());
   requestAnimationFrame(frame);
 })();
 
-// ── Service card 3-D tilt ───────────────────────────────────
 document.querySelectorAll('.svc-card').forEach(card => {
   card.addEventListener('mousemove', e => {
     const r = card.getBoundingClientRect();
@@ -1266,7 +1244,6 @@ document.querySelectorAll('.svc-card').forEach(card => {
   card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
-// ── Service tabs ────────────────────────────────────────────
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
