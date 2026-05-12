@@ -402,6 +402,81 @@
       text-align: center; font-size: .78rem; color: rgba(255,255,255,.28);
       margin-top: 2.5rem; font-style: italic;
     }
+    .popular-badge {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      background: linear-gradient(135deg, #FFD700, #C9A227);
+      color: #000; font-size: .6rem; font-weight: 800;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: .28rem .75rem; border-radius: 2px;
+      box-shadow: 0 0 14px rgba(201,162,39,.7);
+      animation: popGlow 2.2s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    @keyframes popGlow {
+      0%,100% { box-shadow: 0 0 14px rgba(201,162,39,.65); }
+      50%      { box-shadow: 0 0 30px rgba(240,192,64,1), 0 0 8px rgba(255,255,255,.25); }
+    }
+
+    /* ── CONTACT DROPDOWN ──────────────────────────────────── */
+    .nav-contact { position: relative; }
+    .nav-contact-btn {
+      display: flex !important; align-items: center; gap: .28rem; cursor: pointer;
+    }
+    .nav-caret {
+      display: inline-block; font-size: .55rem;
+      transition: transform .25s; line-height: 1;
+    }
+    .nav-contact.open .nav-caret { transform: rotate(180deg); }
+    .contact-dropdown {
+      position: absolute; top: calc(100% + 1.4rem); right: -1rem;
+      background: rgba(8,8,8,.98);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(201,162,39,.2);
+      border-radius: 8px; min-width: 220px;
+      padding: .5rem 0;
+      box-shadow: 0 20px 56px rgba(0,0,0,.8);
+      opacity: 0; pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity .2s ease, transform .2s ease;
+      z-index: 500;
+    }
+    .nav-contact:hover .contact-dropdown,
+    .nav-contact.open .contact-dropdown {
+      opacity: 1; pointer-events: auto; transform: translateY(0);
+    }
+    .contact-dropdown a,
+    .contact-dropdown .cd-addr {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .6rem 1.1rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: .8rem; font-weight: 400;
+      letter-spacing: .3px; text-transform: none;
+      color: rgba(255,255,255,.55);
+      transition: background .15s, color .15s;
+      white-space: nowrap;
+    }
+    .contact-dropdown a::after { display: none !important; }
+    .contact-dropdown a:hover { background: rgba(201,162,39,.08); color: var(--white); }
+    .contact-dropdown .cd-divider {
+      height: 1px; background: rgba(255,255,255,.06); margin: .35rem 0;
+    }
+    .contact-dropdown .cd-addr {
+      color: rgba(255,255,255,.28); font-size: .74rem; cursor: default;
+    }
+    .contact-dropdown .cd-icon { font-size: .95rem; flex-shrink: 0; }
+
+    @media (max-width: 768px) {
+      .contact-dropdown {
+        position: static;
+        background: rgba(201,162,39,.05);
+        border: none; border-radius: 0; min-width: 0;
+        box-shadow: none; padding: 0;
+        max-height: 0; overflow: hidden;
+        opacity: 1; pointer-events: auto; transform: none;
+        transition: max-height .3s ease;
+      }
+      .nav-contact.open .contact-dropdown { max-height: 280px; }
+    }
 
     /* ── STATS BAR ───────────────────────────────────────────── */
     #stats {
@@ -865,6 +940,18 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#reviews">Reviews</a></li>
+    <li class="nav-contact" id="nav-contact">
+      <a href="#" class="nav-contact-btn" id="nav-contact-btn">Contact <span class="nav-caret">▼</span></a>
+      <div class="contact-dropdown" id="contact-dropdown">
+        <a href="tel:+15145039296"><span class="cd-icon">📞</span>514-503-9296</a>
+        <div class="cd-divider"></div>
+        <a href="https://www.instagram.com/ad_details._/" target="_blank" rel="noopener"><span class="cd-icon">📸</span>Instagram</a>
+        <a href="https://www.tiktok.com/@ad_detaling.0" target="_blank" rel="noopener"><span class="cd-icon">🎵</span>TikTok</a>
+        <a href="https://www.facebook.com/ADdetailing" target="_blank" rel="noopener"><span class="cd-icon">📘</span>Facebook</a>
+        <div class="cd-divider"></div>
+        <div class="cd-addr"><span class="cd-icon">📍</span>153 rue Jean-Talon, Châteauguay</div>
+      </div>
+    </li>
     <li><a href="#booking" class="nav-cta">Book Now</a></li>
   </ul>
   <div id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
@@ -973,6 +1060,7 @@
 
   <div class="tab-pane active services-grid" id="tab-standard">
     <div class="svc-card reveal d1">
+      <span class="popular-badge">⭐ Most Popular</span>
       <span class="svc-icon">🚗</span>
       <h3>Full Detail</h3>
       <div class="svc-meta">
@@ -1316,7 +1404,7 @@ document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => revealO
 
 // Strip dark background from logo PNGs — makes near-black pixels transparent
 function stripLogoBg(img) {
-  var thr = 55;
+  var thr = 85;
   try {
     var cvs = document.createElement('canvas');
     cvs.width  = img.naturalWidth  || 512;
@@ -1424,6 +1512,24 @@ function dismissSplash() {
 }
 setTimeout(dismissSplash, 3600);
 splash.addEventListener('click', dismissSplash);
+
+// Contact dropdown
+var navContactEl  = document.getElementById('nav-contact');
+var navContactBtn = document.getElementById('nav-contact-btn');
+navContactBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  navContactEl.classList.toggle('open');
+});
+document.addEventListener('click', function(e) {
+  if (!navContactEl.contains(e.target)) navContactEl.classList.remove('open');
+});
+document.querySelectorAll('#contact-dropdown a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    navContactEl.classList.remove('open');
+    burger.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
+});
 
 const sections = document.querySelectorAll('section[id]');
 const links    = document.querySelectorAll('.nav-links a[href^="#"]');
