@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AD Detailing | Premium Car &amp; RV Detailing – Châteauguay, QC</title>
+  <meta name="description" content="Premium car and RV detailing in Châteauguay, Rive-Sud MTL. Interior, exterior, paint correction &amp; ceramic coating. Book online or call 514-503-9296." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold:       #C9A227;
+      --gold-light: #FFD700;
+      --blue:       #1E6BFF;
+      --dark:       #080808;
+      --dark-2:     #111111;
+      --dark-3:     #1a1a1a;
+      --white:      #ffffff;
+      --gray:       #aaaaaa;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html  { scroll-behavior: smooth; }
+    body  {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+    h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAVBAR ─────────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .3s, box-shadow .3s;
+    }
+    #navbar.scrolled {
+      background: rgba(8,8,8,.97);
+      box-shadow: 0 2px 24px rgba(201,162,39,.15);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .7rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 1.35rem; letter-spacing: 1px;
+    }
+    .nav-logo .badge {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #7a5f0f);
+      border: 2px solid var(--gold-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .88rem; font-weight: 900; color: #000;
+    }
+    .nav-logo .gold { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: .82rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--white); transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold) !important; color: #000 !important;
+      padding: .5rem 1.3rem; border-radius: 4px;
+      font-weight: 800 !important;
+      transition: background .2s, transform .2s !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+
+    #hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 5px;
+    }
+    #hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); transition: transform .3s, opacity .3s;
+    }
+    #hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #hamburger.open span:nth-child(2) { opacity: 0; }
+    #hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      #hamburger { display: flex; }
+      .nav-links {
+        position: fixed; top: 68px; left: 0; right: 0;
+        background: rgba(8,8,8,.98);
+        flex-direction: column; align-items: center; gap: 0;
+        transform: translateY(-130%); transition: transform .35s;
+        border-bottom: 1px solid rgba(201,162,39,.25);
+        padding: .5rem 0;
+      }
+      .nav-links.open { transform: translateY(0); }
+      .nav-links li { width: 100%; text-align: center; }
+      .nav-links a { display: block; padding: .9rem; }
+      .nav-cta { margin: .4rem 2rem !important; border-radius: 4px; display: block; }
+    }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #hero-canvas { position: absolute; inset: 0; z-index: 0; }
+    .hero-glow {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        radial-gradient(ellipse at 65% 45%, rgba(201,162,39,.09) 0%, transparent 65%),
+        radial-gradient(ellipse at 20% 75%, rgba(30,107,255,.07) 0%, transparent 55%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; padding: 6rem 1.5rem 4rem;
+      max-width: 820px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-size: .75rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: ''; display: block;
+      width: 30px; height: 1px; background: var(--gold);
+    }
+    .hero-title {
+      font-size: clamp(2.6rem, 9vw, 5.8rem);
+      font-weight: 900; text-transform: uppercase; line-height: 1.04;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title .gold  { color: var(--gold); }
+    .hero-title .blue  { color: var(--blue); }
+    .hero-sub {
+      font-size: clamp(.95rem, 2.5vw, 1.15rem);
+      color: var(--gray); margin-bottom: 2.5rem; line-height: 1.8;
+    }
+    .hero-btns {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold); color: #000;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: .92rem;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 1rem 2.6rem; border-radius: 4px;
+      border: none; cursor: pointer;
+      box-shadow: 0 4px 22px rgba(201,162,39,.35);
+      transition: background .2s, transform .2s, box-shadow .2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201,162,39,.45);
+    }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: .92rem;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 1rem 2.2rem; border-radius: 4px;
+      border: 2px solid rgba(255,255,255,.3);
+      display: inline-flex; align-items: center; gap: .5rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .btn-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex; gap: 3.5rem;
+      justify-content: center; margin-top: 4rem; flex-wrap: wrap;
+    }
+    .hero-stat .num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem; font-weight: 900; color: var(--gold);
+    }
+    .hero-stat .lbl {
+      font-size: .72rem; text-transform: uppercase;
+      letter-spacing: 2px; color: var(--gray); margin-top: .25rem;
+    }
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%); z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: .45rem;
+      color: var(--gray); font-size: .68rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      animation: nudge 2.2s infinite;
+    }
+    .scroll-hint .arrow {
+      width: 18px; height: 18px;
+      border-right: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+      transform: rotate(45deg);
+    }
+    @keyframes nudge {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── SECTION SHARED ─────────────────────────────────── */
+    section { padding: 6rem 2rem; }
+    .section-hd { text-align: center; margin-bottom: 4rem; }
+    .stag {
+      display: inline-block; font-size: .72rem; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+      margin-bottom: .9rem;
+    }
+    .stitle {
+      font-size: clamp(1.9rem, 4vw, 2.9rem);
+      font-weight: 900; text-transform: uppercase; line-height: 1.1;
+    }
+    .stitle .gold { color: var(--gold); }
+    .sdivider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: 1.4rem auto 0;
+    }
+
+    /* ── SERVICES ────────────────────────────────────────── */
+    #services { background: var(--dark); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.4rem; max-width: 1200px; margin: 0 auto;
+      perspective: 1200px;
+    }
+    .svc-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(201,162,39,.12);
+      border-radius: 8px; padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: border-color .3s, box-shadow .3s;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .svc-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--blue));
+      transform: scaleX(0); transform-origin: left; transition: transform .4s;
+    }
+    .svc-card:hover { border-color: rgba(201,162,39,.4); box-shadow: 0 20px 48px rgba(0,0,0,.45); }
+    .svc-card:hover::before { transform: scaleX(1); }
+    .svc-icon { font-size: 2.4rem; margin-bottom: 1.2rem; display: block; }
+    .svc-card h3 {
+      font-size: 1.05rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--white); margin-bottom: .7rem;
+    }
+    .svc-card > p { font-size: .88rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.2rem; }
+    .svc-card ul { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+    .svc-card ul li {
+      font-size: .82rem; color: var(--gray);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .svc-card ul li::before { content: '✦'; color: var(--gold); font-size: .58rem; flex-shrink: 0; }
+    .svc-badge {
+      position: absolute; top: 1rem; right: 1rem;
+      background: var(--gold); color: #000;
+      font-size: .62rem; font-weight: 800;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: .22rem .55rem; border-radius: 2px;
+    }
+
+    /* ── STATS BAR ───────────────────────────────────────── */
+    #stats {
+      background: linear-gradient(135deg, rgba(201,162,39,.1), rgba(30,107,255,.07));
+      border-top: 1px solid rgba(201,162,39,.18);
+      border-bottom: 1px solid rgba(201,162,39,.18);
+      padding: 2.8rem 2rem;
+    }
+    .stats-row {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      max-width: 860px; margin: 0 auto;
+    }
+    .stat-item {
+      flex: 1; min-width: 140px; text-align: center; padding: 1.5rem;
+      border-right: 1px solid rgba(201,162,39,.18);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.8rem; font-weight: 900; color: var(--gold); line-height: 1;
+    }
+    .stat-lbl { font-size: .72rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gray); margin-top: .5rem; }
+    @media (max-width: 480px) {
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(201,162,39,.18); }
+      .stat-item:last-child { border-bottom: none; }
+    }
+
+    /* ── ABOUT ───────────────────────────────────────────── */
+    #about { background: var(--dark-2); position: relative; overflow: hidden; }
+    #about::after {
+      content: ''; position: absolute; right: -180px; top: -180px;
+      width: 560px; height: 560px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,162,39,.05), transparent 70%);
+      pointer-events: none;
+    }
+    .about-wrap {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; max-width: 1080px; margin: 0 auto; align-items: center;
+    }
+    @media (max-width: 768px) { .about-wrap { grid-template-columns: 1fr; gap: 3rem; } }
+    .logo-ring {
+      width: 280px; height: 280px; border-radius: 50%;
+      border: 3px solid var(--gold);
+      background: radial-gradient(circle at 30% 30%, #1e1e1e, #080808);
+      box-shadow: 0 0 70px rgba(201,162,39,.18), inset 0 0 40px rgba(201,162,39,.04);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; margin: 0 auto;
+    }
+    .logo-ring .crown { font-size: 2.5rem; position: absolute; top: 24px; }
+    .logo-ring .ad {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 5.2rem; font-weight: 900; line-height: 1;
+      letter-spacing: -2px; color: var(--white);
+    }
+    .logo-ring .ad span { color: var(--gold); }
+    .logo-ring .det {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); position: absolute; bottom: 48px;
+    }
+    .about-text .section-hd { text-align: left; margin-bottom: 2rem; }
+    .about-text .sdivider { margin: 1.4rem 0 0; }
+    .about-text p { color: var(--gray); line-height: 1.9; margin-bottom: 1.2rem; font-size: .93rem; }
+    .highlights {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;
+    }
+    .hl { display: flex; align-items: flex-start; gap: .7rem; }
+    .hl-icon { font-size: 1.35rem; flex-shrink: 0; margin-top: 2px; }
+    .hl h4 { font-size: .83rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: .2rem; }
+    .hl p  { font-size: .78rem; color: var(--gray); margin: 0; line-height: 1.5; }
+
+    /* ── GALLERY ─────────────────────────────────────────── */
+    #gallery { background: var(--dark); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem; max-width: 1200px; margin: 0 auto;
+    }
+    .gallery-grid .g-item:first-child { grid-row: span 2; }
+    .g-item {
+      position: relative; border-radius: 8px; overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--dark-3);
+      border: 1px solid rgba(201,162,39,.1);
+      cursor: pointer; transition: transform .3s, box-shadow .3s;
+    }
+    .g-item:first-child { aspect-ratio: auto; }
+    .g-item:hover { transform: scale(1.02); box-shadow: 0 12px 36px rgba(0,0,0,.5); }
+    .g-ph {
+      width: 100%; height: 100%; min-height: 200px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .5rem;
+      background: linear-gradient(135deg, #101010, #1e1e1e);
+    }
+    .g-ph .ico  { font-size: 3rem; opacity: .2; }
+    .g-ph .lbl  { font-size: .7rem; color: rgba(255,255,255,.18); text-transform: uppercase; letter-spacing: 2px; }
+    .g-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.78), transparent);
+      opacity: 0; transition: opacity .3s;
+      display: flex; align-items: flex-end; padding: 1.4rem;
+    }
+    .g-item:hover .g-overlay { opacity: 1; }
+    .g-overlay span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .82rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px; color: var(--gold);
+    }
+    .gallery-cta { text-align: center; margin-top: 2rem; font-size: .85rem; color: var(--gray); }
+    .gallery-cta a { color: var(--gold); font-weight: 600; transition: color .2s; }
+    .gallery-cta a:hover { color: var(--gold-light); }
+
+    /* ── REVIEWS ─────────────────────────────────────────── */
+    #reviews { background: var(--dark-2); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.4rem; max-width: 1000px; margin: 0 auto;
+    }
+    .rv-card {
+      background: var(--dark-3);
+      border: 1px solid rgba(201,162,39,.1);
+      border-radius: 8px; padding: 2rem; position: relative;
+      transition: border-color .3s, transform .3s;
+    }
+    .rv-card:hover { border-color: rgba(201,162,39,.3); transform: translateY(-4px); }
+    .rv-card::before {
+      content: '\201C'; position: absolute; top: .8rem; right: 1.4rem;
+      font-size: 4.5rem; line-height: 1;
+      color: rgba(201,162,39,.12); font-family: Georgia, serif;
+    }
+    .rv-stars { color: var(--gold); letter-spacing: 2px; margin-bottom: 1rem; }
+    .rv-text  { font-size: .88rem; color: var(--gray); line-height: 1.75; margin-bottom: 1.5rem; }
+    .rv-author { display: flex; align-items: center; gap: .75rem; }
+    .rv-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #7a5f0f);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem;
+      color: #000; flex-shrink: 0;
+    }
+    .rv-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .88rem; }
+    .rv-date { font-size: .73rem; color: var(--gray); margin-top: .1rem; }
+
+    /* ── BOOKING ─────────────────────────────────────────── */
+    #booking { background: var(--dark); text-align: center; position: relative; overflow: hidden; }
+    #booking::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,162,39,.09), transparent 60%);
+      pointer-events: none;
+    }
+    #booking .section-hd { margin-bottom: 1.5rem; }
+    #booking .sub {
+      max-width: 540px; margin: 0 auto 2.8rem;
+      color: var(--gray); font-size: .97rem; line-height: 1.75;
+    }
+    .book-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3.5rem; }
+    .contact-row {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 2.5rem;
+      margin-top: 2rem; padding-top: 2rem;
+      border-top: 1px solid rgba(201,162,39,.15);
+    }
+    .ci { display: flex; align-items: center; gap: .7rem; font-size: .9rem; }
+    .ci .ico { font-size: 1.3rem; }
+    .ci a:hover { color: var(--gold); transition: color .2s; }
+    .social-row { display: flex; justify-content: center; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+    .soc-btn {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .6rem 1.2rem; border: 1px solid rgba(201,162,39,.25);
+      border-radius: 4px; font-size: .8rem; font-weight: 600;
+      color: var(--white); transition: border-color .2s, background .2s, transform .2s;
+    }
+    .soc-btn:hover { border-color: var(--gold); background: rgba(201,162,39,.08); transform: translateY(-2px); }
+    .soc-btn .si { font-size: 1.1rem; }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: #040404; padding: 1.8rem 2rem; text-align: center;
+      border-top: 1px solid rgba(201,162,39,.1);
+    }
+    footer p { font-size: .78rem; color: rgba(255,255,255,.28); }
+    footer span { color: var(--gold); }
+
+    /* ── FLOATING CTA ────────────────────────────────────── */
+    #fab {
+      position: fixed; bottom: 1.8rem; right: 1.8rem; z-index: 900;
+      background: var(--gold); color: #000;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: .82rem; letter-spacing: 1px; text-transform: uppercase;
+      padding: .82rem 1.4rem; border-radius: 50px;
+      box-shadow: 0 4px 24px rgba(201,162,39,.4);
+      display: none; align-items: center; gap: .4rem;
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    #fab:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(201,162,39,.5); }
+
+    /* ── REVEAL ──────────────────────────────────────────── */
+    .reveal       { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-l     { opacity: 0; transform: translateX(-40px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-r     { opacity: 0; transform: translateX(40px);  transition: opacity .7s ease, transform .7s ease; }
+    .vis          { opacity: 1 !important; transform: none !important; }
+    .d1 { transition-delay: .1s; }
+    .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; }
+    .d4 { transition-delay: .4s; }
+    .d5 { transition-delay: .5s; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ──────────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <div class="badge">AD</div>
+    <div><span class="gold">AD</span> Detailing</div>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#booking" class="nav-cta">Book Now</a></li>
+  </ul>
+  <div id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────────────── -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="eyebrow reveal">Rive-Sud MTL &nbsp;·&nbsp; Châteauguay, QC</div>
+    <h1 class="hero-title reveal d1">
+      Premium<br>
+      <span class="gold">Car &amp; RV</span><br>
+      <span class="blue">Detailing</span>
+    </h1>
+    <p class="hero-sub reveal d2">
+      Interior &nbsp;·&nbsp; Exterior &nbsp;·&nbsp; Paint Correction &nbsp;·&nbsp; Ceramic Coating<br>
+      We make your vehicle look brand new — guaranteed.
+    </p>
+    <div class="hero-btns reveal d3">
+      <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="btn-primary">Book Your Appointment</a>
+      <a href="tel:+15145039296" class="btn-outline">&#128222; 514-503-9296</a>
+    </div>
+    <div class="hero-stats reveal d4">
+      <div class="hero-stat"><div class="num">5.0&#9733;</div><div class="lbl">Rating</div></div>
+      <div class="hero-stat"><div class="num" data-count="100">0+</div><div class="lbl">Happy Clients</div></div>
+      <div class="hero-stat"><div class="num" data-count="3">0</div><div class="lbl">Yrs Experience</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="arrow"></div></div>
+</section>
+
+<!-- ── SERVICES ─────────────────────────────────────────────── -->
+<section id="services">
+  <div class="section-hd reveal">
+    <span class="stag">What We Offer</span>
+    <h2 class="stitle">Our <span class="gold">Services</span></h2>
+    <div class="sdivider"></div>
+  </div>
+  <div class="services-grid">
+
+    <div class="svc-card reveal d1">
+      <span class="svc-icon">🪣</span>
+      <h3>Interior Detailing</h3>
+      <p>Full deep clean of every surface inside your vehicle — spotless and fresh.</p>
+      <ul>
+        <li>Full vacuum (seats, trunk, mats)</li>
+        <li>Steam cleaning &amp; sanitizing</li>
+        <li>Dashboard &amp; console detail</li>
+        <li>Leather conditioning</li>
+        <li>Interior glass cleaning</li>
+      </ul>
+    </div>
+
+    <div class="svc-card reveal d2">
+      <span class="svc-icon">✨</span>
+      <h3>Exterior Detailing</h3>
+      <p>Hand-wash, decontamination, and protection to make your paint pop.</p>
+      <ul>
+        <li>Hand wash &amp; blow dry</li>
+        <li>Clay bar decontamination</li>
+        <li>Tire &amp; wheel deep clean</li>
+        <li>Paint sealant / wax</li>
+        <li>Exterior glass treatment</li>
+      </ul>
+    </div>
+
+    <div class="svc-card reveal d3">
+      <span class="svc-icon">🔧</span>
+      <h3>Paint Correction</h3>
+      <p>Remove swirl marks, light scratches, and oxidation for a flawless factory look.</p>
+      <ul>
+        <li>Single &amp; multi-stage polish</li>
+        <li>Swirl &amp; scratch removal</li>
+        <li>Oxidation treatment</li>
+        <li>Paint depth measurement</li>
+        <li>Final seal &amp; protection</li>
+      </ul>
+      <span class="svc-badge">Premium</span>
+    </div>
+
+    <div class="svc-card reveal d4">
+      <span class="svc-icon">💎</span>
+      <h3>Ceramic Coating</h3>
+      <p>Professional nano-ceramic protection — repels water, UV, and contaminants for years.</p>
+      <ul>
+        <li>Paint prep &amp; decontamination</li>
+        <li>Professional-grade ceramic coat</li>
+        <li>Hydrophobic water-bead effect</li>
+        <li>UV &amp; chemical resistance</li>
+        <li>Multi-year durability</li>
+      </ul>
+      <span class="svc-badge">Premium</span>
+    </div>
+
+    <div class="svc-card reveal d5">
+      <span class="svc-icon">🚐</span>
+      <h3>RV Detailing</h3>
+      <p>Full interior and exterior detailing for motorhomes, campers, and trailers.</p>
+      <ul>
+        <li>Roof &amp; exterior wash</li>
+        <li>Interior deep clean</li>
+        <li>Oxidation &amp; stain removal</li>
+        <li>Sealant &amp; wax protection</li>
+        <li>Wheel &amp; trim detail</li>
+      </ul>
+    </div>
+
+    <div class="svc-card reveal d1">
+      <span class="svc-icon">➕</span>
+      <h3>Add-Ons</h3>
+      <p>Upgrade any package with our specialty treatments for a complete result.</p>
+      <ul>
+        <li>Engine bay cleaning</li>
+        <li>Odour &amp; ozone elimination</li>
+        <li>Headlight restoration</li>
+        <li>Pet hair removal</li>
+        <li>Fabric protection spray</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── STATS BAR ───────────────────────────────────────────── -->
+<div id="stats">
+  <div class="stats-row">
+    <div class="stat-item reveal">
+      <div class="stat-num">5.0&#9733;</div>
+      <div class="stat-lbl">Google Rating</div>
+    </div>
+    <div class="stat-item reveal d1">
+      <div class="stat-num" data-count="100">0</div>
+      <div class="stat-lbl">Vehicles Detailed</div>
+    </div>
+    <div class="stat-item reveal d2">
+      <div class="stat-num" data-count="3">0</div>
+      <div class="stat-lbl">Years in Business</div>
+    </div>
+    <div class="stat-item reveal d3">
+      <div class="stat-num">100%</div>
+      <div class="stat-lbl">Satisfaction</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ABOUT ────────────────────────────────────────────────── -->
+<section id="about">
+  <div class="about-wrap">
+    <div class="reveal-l">
+      <div class="logo-ring">
+        <span class="crown">👑</span>
+        <div class="ad"><span>A</span>D</div>
+        <span class="det">Detailing</span>
+      </div>
+    </div>
+    <div class="about-text reveal-r">
+      <div class="section-hd">
+        <span class="stag">Who We Are</span>
+        <h2 class="stitle">About <span class="gold">AD Detailing</span></h2>
+        <div class="sdivider"></div>
+      </div>
+      <p>At AD Detailing, we are a South Shore–based business dedicated to delivering premium car detailing services. Our mission is simple: provide high-quality results that make your vehicle look and feel brand new.</p>
+      <p>We take pride in our attention to detail, using professional techniques and top-tier products to ensure every vehicle — car or RV — gets treated with care and precision.</p>
+      <p>Located in Châteauguay, we proudly serve the entire Rive-Sud MTL area. Whether it's a daily driver or a showroom piece, we treat every vehicle like our own.</p>
+      <div class="highlights">
+        <div class="hl"><span class="hl-icon">🛡️</span><div><h4>Quality Products</h4><p>Professional-grade products only</p></div></div>
+        <div class="hl"><span class="hl-icon">📍</span><div><h4>Châteauguay, QC</h4><p>Serving all of Rive-Sud MTL</p></div></div>
+        <div class="hl"><span class="hl-icon">⭐</span><div><h4>5-Star Rated</h4><p>Consistent top reviews</p></div></div>
+        <div class="hl"><span class="hl-icon">📅</span><div><h4>Easy Booking</h4><p>Online &amp; phone appointments</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ───────────────────────────────────────────────── -->
+<section id="gallery">
+  <div class="section-hd reveal">
+    <span class="stag">Our Work</span>
+    <h2 class="stitle">Before &amp; <span class="gold">After</span></h2>
+    <div class="sdivider"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-item reveal d1">
+      <div class="g-ph"><div class="ico">🚗</div><div class="lbl">Add Your Photo</div></div>
+      <div class="g-overlay"><span>Interior Detail</span></div>
+    </div>
+    <div class="g-item reveal d2">
+      <div class="g-ph"><div class="ico">✨</div><div class="lbl">Add Your Photo</div></div>
+      <div class="g-overlay"><span>Exterior Polish</span></div>
+    </div>
+    <div class="g-item reveal d3">
+      <div class="g-ph"><div class="ico">💎</div><div class="lbl">Add Your Photo</div></div>
+      <div class="g-overlay"><span>Ceramic Coating</span></div>
+    </div>
+    <div class="g-item reveal d4">
+      <div class="g-ph"><div class="ico">🔧</div><div class="lbl">Add Your Photo</div></div>
+      <div class="g-overlay"><span>Paint Correction</span></div>
+    </div>
+    <div class="g-item reveal d5">
+      <div class="g-ph"><div class="ico">🚐</div><div class="lbl">Add Your Photo</div></div>
+      <div class="g-overlay"><span>RV Detailing</span></div>
+    </div>
+  </div>
+  <p class="gallery-cta reveal">
+    See more of our work on <a href="https://www.instagram.com/ad_detaiils._/" target="_blank" rel="noopener">Instagram @ad_detaiils._</a>
+  </p>
+</section>
+
+<!-- ── REVIEWS ───────────────────────────────────────────────── -->
+<section id="reviews">
+  <div class="section-hd reveal">
+    <span class="stag">Client Reviews</span>
+    <h2 class="stitle">What Clients <span class="gold">Say</span></h2>
+    <div class="sdivider"></div>
+  </div>
+  <div class="reviews-grid">
+    <div class="rv-card reveal d1">
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-text">"Incredible work on my car. The interior looks and smells brand new. Very professional service and great attention to detail — exactly what you'd expect from a premium detailer."</p>
+      <div class="rv-author">
+        <div class="rv-avatar">M</div>
+        <div><div class="rv-name">Marc T.</div><div class="rv-date">Google Review</div></div>
+      </div>
+    </div>
+    <div class="rv-card reveal d2">
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-text">"Got the ceramic coating done on my SUV and the results are stunning — water just beads right off. Highly recommend AD Detailing to anyone who takes their car seriously."</p>
+      <div class="rv-author">
+        <div class="rv-avatar">S</div>
+        <div><div class="rv-name">Sophie R.</div><div class="rv-date">Google Review</div></div>
+      </div>
+    </div>
+    <div class="rv-card reveal d3">
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-text">"They detailed my RV inside and out — amazing job. The team was punctual, professional, and the price was very fair. Will definitely be back every season."</p>
+      <div class="rv-author">
+        <div class="rv-avatar">J</div>
+        <div><div class="rv-name">Jean-Pierre L.</div><div class="rv-date">Google Review</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOKING CTA ────────────────────────────────────────────── -->
+<section id="booking">
+  <div class="section-hd reveal">
+    <span class="stag">Ready to Book?</span>
+    <h2 class="stitle">Book Your <span class="gold">Appointment</span></h2>
+    <div class="sdivider"></div>
+  </div>
+  <p class="sub reveal">Ready to transform your vehicle? Book online in minutes or give us a call — we'll find a time that works for you.</p>
+  <div class="book-btns reveal d1">
+    <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="btn-primary">Book Online Now</a>
+    <a href="tel:+15145039296" class="btn-outline">&#128222; Call 514-503-9296</a>
+  </div>
+  <div class="contact-row reveal d2">
+    <div class="ci"><span class="ico">📍</span><span>153 rue Jean-Talon, Châteauguay, QC</span></div>
+    <div class="ci"><span class="ico">🕐</span><span>Open until 20:00</span></div>
+    <div class="ci"><span class="ico">📞</span><a href="tel:+15145039296">514-503-9296</a></div>
+  </div>
+  <div class="social-row reveal d3">
+    <a href="https://www.instagram.com/ad_detaiils._/" target="_blank" rel="noopener" class="soc-btn">
+      <span class="si">📷</span> Instagram
+    </a>
+    <a href="https://www.tiktok.com/@ad_details.0" target="_blank" rel="noopener" class="soc-btn">
+      <span class="si">🎵</span> TikTok
+    </a>
+    <a href="https://www.facebook.com/ADdetailing" target="_blank" rel="noopener" class="soc-btn">
+      <span class="si">📘</span> Facebook
+    </a>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <p>&copy; 2025 <span>AD Detailing</span> &nbsp;·&nbsp; Châteauguay, QC &nbsp;·&nbsp; All rights reserved</p>
+</footer>
+
+<!-- ── FLOATING CTA ───────────────────────────────────────────── -->
+<a id="fab" href="https://addetailing.setmore.com" target="_blank" rel="noopener">
+  📅 Book Now
+</a>
+
+<script>
+// ── Navbar + floating button on scroll ──────────────────────
+const navbar  = document.getElementById('navbar');
+const fab     = document.getElementById('fab');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', scrollY > 50);
+  fab.style.display = scrollY > 400 ? 'flex' : 'none';
+}, { passive: true });
+
+// ── Mobile hamburger ────────────────────────────────────────
+const burger   = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+
+function toggleMenu() {
+  burger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+}
+burger.addEventListener('click', toggleMenu);
+burger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggleMenu(); });
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open');
+  navLinks.classList.remove('open');
+}));
+
+// ── Scroll reveal ───────────────────────────────────────────
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('vis'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => revealObs.observe(el));
+
+// ── Animated counters ───────────────────────────────────────
+function runCounter(el) {
+  const target = parseInt(el.dataset.count);
+  const suffix = el.textContent.includes('+') ? '+' : '';
+  const step   = target / (1400 / 16);
+  let cur = 0;
+  const tick = () => {
+    cur = Math.min(cur + step, target);
+    el.textContent = Math.floor(cur) + suffix;
+    if (cur < target) requestAnimationFrame(tick);
+  };
+  tick();
+}
+const cntObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && e.target.dataset.count) {
+      runCounter(e.target); cntObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => cntObs.observe(el));
+
+// ── Hero particle canvas ────────────────────────────────────
+const canvas = document.getElementById('hero-canvas');
+const ctx    = canvas.getContext('2d');
+
+function sizeCanvas() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+sizeCanvas();
+window.addEventListener('resize', sizeCanvas, { passive: true });
+
+class Particle {
+  constructor() { this.init(); }
+  init() {
+    this.x  = Math.random() * canvas.width;
+    this.y  = Math.random() * canvas.height;
+    this.r  = Math.random() * 1.4 + 0.3;
+    this.vx = (Math.random() - 0.5) * 0.25;
+    this.vy = -(Math.random() * 0.35 + 0.1);
+    this.a  = Math.random() * 0.55 + 0.1;
+    this.c  = Math.random() > 0.55 ? '#C9A227' : '#ffffff';
+  }
+  step() {
+    this.x += this.vx; this.y += this.vy; this.a -= 0.0008;
+    if (this.y < 0 || this.a <= 0) this.init();
+  }
+  draw() {
+    ctx.save(); ctx.globalAlpha = this.a; ctx.fillStyle = this.c;
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fill(); ctx.restore();
+  }
+}
+
+const particles = Array.from({ length: 130 }, () => new Particle());
+
+(function frame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.step(); p.draw(); });
+  requestAnimationFrame(frame);
+})();
+
+// ── Service card 3-D tilt ───────────────────────────────────
+document.querySelectorAll('.svc-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width  - 0.5;
+    const y = (e.clientY - r.top)  / r.height - 0.5;
+    card.style.transform = `translateY(-6px) rotateX(${-y * 7}deg) rotateY(${x * 7}deg)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
+// ── Active nav link on scroll ───────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const links    = document.querySelectorAll('.nav-links a[href^="#"]');
+
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (scrollY >= s.offsetTop - 130) cur = s.id; });
+  links.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--gold)' : '';
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
