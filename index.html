@@ -7,7 +7,7 @@
   <meta name="description" content="Premium car detailing in Châteauguay, Rive-Sud MTL. Interior, exterior, paint correction &amp; ceramic coating. Book online or call 514-503-9296." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     :root {
       --gold:       #C9A227;
@@ -284,8 +284,10 @@
       padding-left: .6rem;
     }
     .stitle {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 900; text-transform: uppercase; line-height: 1.08;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4.2vw, 3.1rem);
+      font-weight: 700; text-transform: uppercase; line-height: 1.05;
+      letter-spacing: .5px;
     }
     .stitle .gold { color: var(--gold); }
     .sdivider {
@@ -352,7 +354,17 @@
       transform: translateY(-4px);
     }
     .svc-card:hover::before { transform: scaleX(1); }
-    .svc-icon { font-size: 2.2rem; margin-bottom: 1.2rem; display: block; }
+    .svc-icon { width: 2.6rem; height: 2.6rem; margin-bottom: 1.3rem; display: block; color: var(--gold); }
+    .svc-icon svg { width: 100%; height: 100%; }
+    .svc-card, .rv-card, .g-item { cursor: pointer; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
     .svc-card h3 {
       font-size: 1rem; font-weight: 800;
       text-transform: uppercase; letter-spacing: 1.5px;
@@ -665,7 +677,17 @@
       max-width: 520px; margin: 0 auto 3rem;
       color: rgba(255,255,255,.42); font-size: .93rem; line-height: 1.9;
     }
-    .book-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
+    .book-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .guarantee-row { display: flex; justify-content: center; margin-bottom: 3rem; }
+    .guarantee-badge {
+      display: inline-flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.8rem;
+      border: 1px solid rgba(201,162,39,.22);
+      border-radius: 6px;
+      background: rgba(201,162,39,.05);
+    }
+    .gb-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .82rem; letter-spacing: .5px; color: var(--gold); }
+    .gb-sub { font-size: .74rem; color: rgba(255,255,255,.38); margin-top: .2rem; }
     .contact-row {
       display: flex; justify-content: center; flex-wrap: wrap; gap: 2.8rem;
       margin-top: 2.5rem; padding-top: 2.5rem;
@@ -1061,7 +1083,7 @@
   <div class="tab-pane active services-grid" id="tab-standard">
     <div class="svc-card reveal d1">
       <span class="popular-badge">⭐ Most Popular</span>
-      <span class="svc-icon">🚗</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0zm10 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0M1 9l3-6h16l3 6v6a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V9zm0 0h22M8 3 6 9m10-6 2 6"/></svg></span>
       <h3>Full Detail</h3>
       <div class="svc-meta">
         <span class="svc-price">$199.99</span>
@@ -1078,7 +1100,7 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
     </div>
     <div class="svc-card reveal d2">
-      <span class="svc-icon">🪣</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 4v4H2M16 4v4h6M2 13h20M8 17v3M16 17v3M8 20h8"/></svg></span>
       <h3>Full Interior Detail</h3>
       <div class="svc-meta">
         <span class="svc-price">$139.99</span>
@@ -1095,7 +1117,7 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
     </div>
     <div class="svc-card reveal d3">
-      <span class="svc-icon">✨</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M3 12H5M19 12h2M5.64 5.64l1.41 1.41M16.95 16.95l1.41 1.41M5.64 18.36l1.41-1.41M16.95 7.05l1.41-1.41"/><circle cx="12" cy="12" r="4"/><path d="M12 1v1M12 22v1M1 12h1M22 12h1"/></svg></span>
       <h3>Full Exterior Detail</h3>
       <div class="svc-meta">
         <span class="svc-price">$69.99</span>
@@ -1115,7 +1137,7 @@
 
   <div class="tab-pane services-grid" id="tab-premium">
     <div class="svc-card reveal d1">
-      <span class="svc-icon">💎</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7L12 2z"/><path d="m9 12 2 2 4-4"/></svg></span>
       <h3>5-Year Ceramic Coating</h3>
       <div class="svc-meta">
         <span class="svc-price">$1,299.99</span>
@@ -1133,7 +1155,7 @@
       <span class="svc-badge">Best Value</span>
     </div>
     <div class="svc-card reveal d2">
-      <span class="svc-icon">💠</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7L12 2z"/></svg></span>
       <h3>2-Year Ceramic Coating</h3>
       <div class="svc-meta">
         <span class="svc-price">$999.99</span>
@@ -1151,7 +1173,7 @@
       <span class="svc-badge">Premium</span>
     </div>
     <div class="svc-card reveal d3">
-      <span class="svc-icon">🔧</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
       <h3>2-Step Paint Correction</h3>
       <div class="svc-meta">
         <span class="svc-price">$449.99</span>
@@ -1172,7 +1194,7 @@
 
   <div class="tab-pane addons-grid" id="tab-addons">
     <div class="svc-card reveal d1">
-      <span class="svc-icon">🔩</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></span>
       <h3>Engine Bay Cleaning</h3>
       <div class="svc-meta">
         <span class="svc-price">$50</span>
@@ -1182,7 +1204,7 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Add to booking →</a>
     </div>
     <div class="svc-card reveal d2">
-      <span class="svc-icon">🪄</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
       <h3>Protector Wax</h3>
       <div class="svc-meta">
         <span class="svc-price">$20</span>
@@ -1192,7 +1214,7 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Add to booking →</a>
     </div>
     <div class="svc-card reveal d3">
-      <span class="svc-icon">🐾</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span>
       <h3>Pet Hair Removal</h3>
       <div class="svc-meta">
         <span class="svc-price">$25</span>
@@ -1307,7 +1329,16 @@
   <p class="sub reveal">Ready to transform your vehicle? Book online in minutes or give us a call — we'll find a time that works for you.</p>
   <div class="book-btns reveal d1">
     <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="btn-primary">Book Online Now</a>
-    <a href="tel:+15145039296" class="btn-outline">&#128222; Call 514-503-9296</a>
+    <a href="tel:+15145039296" class="btn-outline"><svg style="width:1rem;height:1rem;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 3h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 10.6a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 514-503-9296</a>
+  </div>
+  <div class="guarantee-row reveal d2">
+    <div class="guarantee-badge">
+      <svg style="width:1.6rem;height:1.6rem;color:var(--gold);flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7L12 2z"/><path d="m9 12 2 2 4-4"/></svg>
+      <div>
+        <div class="gb-title">100% Satisfaction Guaranteed</div>
+        <div class="gb-sub">Not happy? We make it right — no questions asked.</div>
+      </div>
+    </div>
   </div>
   <div class="contact-row reveal d2">
     <div class="ci"><span class="ico">📍</span><span>153 rue Jean-Talon, Châteauguay, QC</span></div>
