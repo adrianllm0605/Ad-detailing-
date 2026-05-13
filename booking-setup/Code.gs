@@ -4,7 +4,7 @@
 // ═══════════════════════════════════════════════════════════════════
 
 // ── CONFIGURATION ─── Fill these in before deploying ────────────────
-var CALENDAR_ID  = 'YOUR_GOOGLE_CALENDAR_EMAIL@gmail.com'; // your Google Calendar email
+var CALENDAR_ID  = 'addetailing08@gmail.com'; // AD Detailing Google Calendar
 var OWNER_PHONE  = '+15145039296';   // your phone — receives SMS for every new booking
 var TWILIO_SID   = 'YOUR_TWILIO_ACCOUNT_SID';
 var TWILIO_TOKEN = 'YOUR_TWILIO_AUTH_TOKEN';

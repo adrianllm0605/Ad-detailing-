@@ -25,7 +25,7 @@
 2. Delete the existing code and paste the entire contents of `Code.gs`
 3. Fill in the 5 config values at the top:
    ```
-   CALENDAR_ID  = 'your-email@gmail.com'   ← your Google Calendar email
+   CALENDAR_ID  = 'addetailing08@gmail.com' ← already set
    OWNER_PHONE  = '+15145039296'            ← your phone (already set)
    TWILIO_SID   = 'ACxxxxxxxx…'
    TWILIO_TOKEN = 'your_auth_token'
