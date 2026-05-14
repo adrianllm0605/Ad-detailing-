@@ -583,44 +583,109 @@
     .hl h4 { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: .2rem; color: var(--white); }
     .hl p  { font-size: .75rem; color: rgba(255,255,255,.38); margin: 0; line-height: 1.5; }
 
-    /* ── GALLERY ─────────────────────────────────────────────────── */
-    #gallery { background: var(--dark); }
-    .gallery-grid {
+    /* ── BEFORE / AFTER ─────────────────────────────────────── */
+    #before-after { background: var(--dark-2); }
+    .ba-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem; max-width: 1200px; margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; max-width: 1100px; margin: 3rem auto 0;
     }
-    .gallery-grid .g-item:first-child { grid-row: span 2; }
-    .g-item {
-      position: relative; border-radius: 8px; overflow: hidden;
-      aspect-ratio: 4/3;
-      background: var(--dark-3);
-      border: 1px solid rgba(255,255,255,.05);
-      cursor: pointer; transition: transform .3s, box-shadow .3s, border-color .3s;
+    .ba-card {
+      position: relative; border-radius: 12px; overflow: hidden;
+      aspect-ratio: 4/3; cursor: ew-resize; user-select: none;
+      border: 1px solid rgba(201,162,39,.15);
+      touch-action: pan-y;
     }
-    .g-item:first-child { aspect-ratio: auto; }
-    .g-item:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(0,0,0,.6); border-color: rgba(201,162,39,.2); }
-    .g-ph {
-      width: 100%; height: 100%; min-height: 200px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: .5rem;
-      background: linear-gradient(135deg, #0d0d0d, #161616);
+    .ba-before, .ba-after {
+      position: absolute; inset: 0; width: 100%; height: 100%;
     }
-    .g-ph .ico  { font-size: 3rem; opacity: .12; }
-    .g-ph .lbl  { font-size: .65rem; color: rgba(255,255,255,.1); text-transform: uppercase; letter-spacing: 2.5px; }
-    .g-overlay {
+    .ba-before img, .ba-after img,
+    .ba-ph { width: 100%; height: 100%; object-fit: cover; display: flex; align-items: center; justify-content: center; }
+    .ba-ph-b { background: linear-gradient(135deg, #0e0e0e 0%, #1a1a14 100%); }
+    .ba-ph-a { background: linear-gradient(135deg, #151508 0%, #2a2410 50%, #1a160a 100%); }
+    .ba-ph-icon { font-size: 3.5rem; opacity: .06; }
+    .ba-after { clip-path: inset(0 50% 0 0); transition: clip-path .03s; }
+    .ba-divider {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      width: 2px; background: var(--gold);
+      transform: translateX(-50%); z-index: 3;
+      transition: left .03s; pointer-events: none;
+    }
+    .ba-handle {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--gold); color: #000;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 16px rgba(0,0,0,.5);
+      z-index: 4; transition: left .03s;
+    }
+    .ba-handle svg { width: 20px; height: 20px; }
+    .ba-chip {
+      position: absolute; bottom: .9rem; z-index: 5;
+      font-size: .68rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1px; padding: .25rem .65rem;
+      background: rgba(0,0,0,.65); border-radius: 4px;
+      backdrop-filter: blur(4px); pointer-events: none;
+    }
+    .ba-chip-l { left: .9rem; color: rgba(255,255,255,.55); }
+    .ba-chip-r { right: .9rem; color: var(--gold); }
+    .ba-hint {
+      text-align: center; margin-top: 1.8rem;
+      font-size: .76rem; color: rgba(255,255,255,.28); display: flex;
+      align-items: center; justify-content: center; gap: .5rem;
+    }
+    .ba-hint svg { width: 16px; height: 16px; opacity: .4; }
+
+    /* ── GALLERY (horizontal scroll) ────────────────────────── */
+    #gallery { background: var(--dark); }
+    .hg-wrap { position: relative; max-width: 1300px; margin: 3rem auto 0; }
+    .hg-track {
+      display: flex; gap: 1.2rem;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: .5rem 2rem 1.5rem;
+      scrollbar-width: none; -ms-overflow-style: none;
+      cursor: grab;
+    }
+    .hg-track::-webkit-scrollbar { display: none; }
+    .hg-track.dragging { cursor: grabbing; }
+    .hg-item {
+      flex-shrink: 0; width: 320px; height: 215px;
+      border-radius: 12px; overflow: hidden; position: relative;
+      scroll-snap-align: start;
+      border: 1px solid rgba(201,162,39,.1);
+      transition: border-color .25s, transform .25s;
+    }
+    .hg-item:hover { border-color: rgba(201,162,39,.28); transform: translateY(-3px); }
+    .hg-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hg-ph {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1c1a0e 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
+    }
+    .hg-ph .hg-ico  { font-size: 2.8rem; opacity: .08; }
+    .hg-ph .hg-lbl  { font-size: .58rem; color: rgba(255,255,255,.08); text-transform: uppercase; letter-spacing: 2px; }
+    .hg-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.82), transparent);
-      opacity: 0; transition: opacity .3s;
-      display: flex; align-items: flex-end; padding: 1.4rem;
+      background: linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 60%);
+      display: flex; align-items: flex-end; padding: .9rem 1rem;
+      opacity: 0; transition: opacity .25s;
     }
-    .g-item:hover .g-overlay { opacity: 1; }
-    .g-overlay span {
-      font-family: 'Montserrat', sans-serif;
-      font-size: .78rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold);
+    .hg-item:hover .hg-overlay { opacity: 1; }
+    .hg-tag { font-size: .68rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+    .hg-nav {
+      display: flex; gap: .6rem; justify-content: center; margin-top: 1.5rem;
     }
-    .gallery-cta { text-align: center; margin-top: 2.5rem; font-size: .82rem; color: rgba(255,255,255,.32); }
+    .hg-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.6); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .hg-btn:hover { background: rgba(201,162,39,.12); border-color: rgba(201,162,39,.3); color: var(--gold); }
+    .hg-btn svg { width: 16px; height: 16px; }
+    .gallery-cta { text-align: center; margin-top: 2rem; font-size: .82rem; color: rgba(255,255,255,.32); }
     .gallery-cta a { color: var(--gold); font-weight: 600; transition: color .2s; }
     .gallery-cta a:hover { color: var(--gold-light); }
 
@@ -1423,6 +1488,103 @@
   </div>
 </section>
 
+<!-- ── BEFORE / AFTER ────────────────────────────────────────────────────── -->
+<section id="before-after">
+  <div class="section-hd reveal">
+    <span class="stag">Transformations</span>
+    <h2 class="stitle">See the <span class="gold">Difference</span></h2>
+    <div class="sdivider"></div>
+  </div>
+  <div class="ba-grid" style="padding:0 2rem">
+    <!-- Card 1 -->
+    <div class="ba-card reveal d1">
+      <div class="ba-before">
+        <div class="ba-ph ba-ph-b"><span class="ba-ph-icon">🚗</span></div>
+      </div>
+      <div class="ba-after">
+        <div class="ba-ph ba-ph-a"><span class="ba-ph-icon">✨</span></div>
+      </div>
+      <div class="ba-divider"><div class="ba-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg></div></div>
+      <span class="ba-chip ba-chip-l">Before</span>
+      <span class="ba-chip ba-chip-r">After</span>
+    </div>
+    <!-- Card 2 -->
+    <div class="ba-card reveal d2">
+      <div class="ba-before">
+        <div class="ba-ph ba-ph-b"><span class="ba-ph-icon">🪑</span></div>
+      </div>
+      <div class="ba-after">
+        <div class="ba-ph ba-ph-a"><span class="ba-ph-icon">✨</span></div>
+      </div>
+      <div class="ba-divider"><div class="ba-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg></div></div>
+      <span class="ba-chip ba-chip-l">Before</span>
+      <span class="ba-chip ba-chip-r">After</span>
+    </div>
+    <!-- Card 3 -->
+    <div class="ba-card reveal d3">
+      <div class="ba-before">
+        <div class="ba-ph ba-ph-b"><span class="ba-ph-icon">🎨</span></div>
+      </div>
+      <div class="ba-after">
+        <div class="ba-ph ba-ph-a"><span class="ba-ph-icon">✨</span></div>
+      </div>
+      <div class="ba-divider"><div class="ba-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg></div></div>
+      <span class="ba-chip ba-chip-l">Before</span>
+      <span class="ba-chip ba-chip-r">After</span>
+    </div>
+  </div>
+  <p class="ba-hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg>
+    Drag the handle to compare before &amp; after
+  </p>
+</section>
+
+<!-- ── GALLERY ────────────────────────────────────────────────────────────── -->
+<section id="gallery">
+  <div class="section-hd reveal">
+    <span class="stag">Portfolio</span>
+    <h2 class="stitle">Our <span class="gold">Work</span></h2>
+    <div class="sdivider"></div>
+  </div>
+  <div class="hg-wrap">
+    <div class="hg-track" id="hg-track">
+      <div class="hg-item reveal d1">
+        <div class="hg-ph"><span class="hg-ico">🚘</span><span class="hg-lbl">Full Detail</span></div>
+        <div class="hg-overlay"><span class="hg-tag">Full Detail</span></div>
+      </div>
+      <div class="hg-item reveal d1">
+        <div class="hg-ph"><span class="hg-ico">🪑</span><span class="hg-lbl">Interior</span></div>
+        <div class="hg-overlay"><span class="hg-tag">Interior Detail</span></div>
+      </div>
+      <div class="hg-item reveal d2">
+        <div class="hg-ph"><span class="hg-ico">💎</span><span class="hg-lbl">Ceramic Coating</span></div>
+        <div class="hg-overlay"><span class="hg-tag">Ceramic Coating</span></div>
+      </div>
+      <div class="hg-item reveal d2">
+        <div class="hg-ph"><span class="hg-ico">🎨</span><span class="hg-lbl">Paint Correction</span></div>
+        <div class="hg-overlay"><span class="hg-tag">Paint Correction</span></div>
+      </div>
+      <div class="hg-item reveal d3">
+        <div class="hg-ph"><span class="hg-ico">✨</span><span class="hg-lbl">Exterior Detail</span></div>
+        <div class="hg-overlay"><span class="hg-tag">Exterior Detail</span></div>
+      </div>
+      <div class="hg-item reveal d3">
+        <div class="hg-ph"><span class="hg-ico">🚐</span><span class="hg-lbl">RV / Van</span></div>
+        <div class="hg-overlay"><span class="hg-tag">RV Detail</span></div>
+      </div>
+    </div>
+    <div class="hg-nav">
+      <button class="hg-btn" id="hg-prev" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button class="hg-btn" id="hg-next" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <p class="gallery-cta">Add your real photos — see <a href="https://github.com/adrianllm0605/Ad-detailing-" target="_blank" rel="noopener">CLAUDE.md</a> for instructions</p>
+</section>
+
 <!-- ── REVIEWS ────────────────────────────────────────────────────────────── -->
 <section id="reviews">
   <div class="section-hd reveal">
@@ -1871,6 +2033,63 @@ window.addEventListener('scroll', () => {
     a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--gold)' : '';
   });
 }, { passive: true });
+
+// ── BEFORE / AFTER SLIDERS ─────────────────────────────────────────────
+document.querySelectorAll('.ba-card').forEach(function(card) {
+  var dragging = false;
+  var divider  = card.querySelector('.ba-divider');
+  var handle   = card.querySelector('.ba-handle');
+  var after    = card.querySelector('.ba-after');
+
+  function setPos(pct) {
+    pct = Math.max(4, Math.min(96, pct));
+    divider.style.left = pct + '%';
+    handle.style.left  = pct + '%';
+    after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+  }
+
+  function getPct(e) {
+    var rect = card.getBoundingClientRect();
+    var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    return (x / rect.width) * 100;
+  }
+
+  card.addEventListener('mousedown',  function(e) { dragging = true; setPos(getPct(e)); });
+  card.addEventListener('touchstart', function(e) { dragging = true; setPos(getPct(e)); }, { passive: true });
+  window.addEventListener('mousemove',  function(e) { if (dragging) setPos(getPct(e)); });
+  window.addEventListener('touchmove',  function(e) { if (dragging) setPos(getPct(e)); }, { passive: true });
+  window.addEventListener('mouseup',  function() { dragging = false; });
+  window.addEventListener('touchend', function() { dragging = false; });
+});
+
+// ── HORIZONTAL GALLERY ─────────────────────────────────────────────────
+(function() {
+  var track = document.getElementById('hg-track');
+  if (!track) return;
+
+  // Arrow navigation
+  document.getElementById('hg-prev').addEventListener('click', function() {
+    track.scrollBy({ left: -340, behavior: 'smooth' });
+  });
+  document.getElementById('hg-next').addEventListener('click', function() {
+    track.scrollBy({ left: 340, behavior: 'smooth' });
+  });
+
+  // Mouse drag-to-scroll
+  var isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', function(e) {
+    isDown = true; track.classList.add('dragging');
+    startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft;
+  });
+  track.addEventListener('mouseleave', function() { isDown = false; track.classList.remove('dragging'); });
+  track.addEventListener('mouseup',    function() { isDown = false; track.classList.remove('dragging'); });
+  track.addEventListener('mousemove',  function(e) {
+    if (!isDown) return;
+    e.preventDefault();
+    var x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  });
+})();
 
 // ── BOOKING SYSTEM ─────────────────────────────────────────────────────
 // Replace this URL after deploying your Google Apps Script (see booking-setup/Code.gs)
