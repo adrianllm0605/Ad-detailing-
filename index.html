@@ -1913,25 +1913,12 @@ function resetAndCloseModals() {
   }, 320);
 }
 
-// Intercept all Setmore booking links — open policy modal instead
-var serviceMap = {
-  'Full Detail':           'Full Detail ($199.99)',
-  'Full Interior Detail':  'Full Interior Detail ($139.99)',
-  'Full Exterior Detail':  'Full Exterior Detail ($69.99)',
-  '5-Year Ceramic Coating':'5-Year Ceramic Coating ($1,299.99)',
-  '2-Year Ceramic Coating':'2-Year Ceramic Coating ($999.99)',
-  '2-Step Paint Correction':'2-Step Paint Correction ($449.99)'
-};
+// Intercept Setmore links — service cards go straight to Setmore, others open modal
 document.querySelectorAll('a[href*="setmore.com"]').forEach(function(link) {
+  if (link.closest('.svc-card')) return; // let service card links open Setmore directly
   link.addEventListener('click', function(e) {
     e.preventDefault();
-    var service = '';
-    var card = this.closest('.svc-card');
-    if (card) {
-      var h3 = card.querySelector('h3');
-      if (h3) service = serviceMap[h3.textContent.trim()] || '';
-    }
-    openPolicyModal(service);
+    openPolicyModal('');
   });
 });
 
