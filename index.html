@@ -7,7 +7,7 @@
   <meta name="description" content="Premium car detailing in Châteauguay, Rive-Sud MTL. Interior, exterior, paint correction &amp; ceramic coating. Book online or call 514-503-9296." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     :root {
       --gold:       #C9A227;
@@ -284,8 +284,10 @@
       padding-left: .6rem;
     }
     .stitle {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 900; text-transform: uppercase; line-height: 1.08;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4.2vw, 3.1rem);
+      font-weight: 700; text-transform: uppercase; line-height: 1.05;
+      letter-spacing: .5px;
     }
     .stitle .gold { color: var(--gold); }
     .sdivider {
@@ -352,7 +354,17 @@
       transform: translateY(-4px);
     }
     .svc-card:hover::before { transform: scaleX(1); }
-    .svc-icon { font-size: 2.2rem; margin-bottom: 1.2rem; display: block; }
+    .svc-icon { width: 2.6rem; height: 2.6rem; margin-bottom: 1.3rem; display: block; color: var(--gold); }
+    .svc-icon svg { width: 100%; height: 100%; }
+    .svc-card, .rv-card, .g-item { cursor: pointer; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
     .svc-card h3 {
       font-size: 1rem; font-weight: 800;
       text-transform: uppercase; letter-spacing: 1.5px;
@@ -571,44 +583,109 @@
     .hl h4 { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: .2rem; color: var(--white); }
     .hl p  { font-size: .75rem; color: rgba(255,255,255,.38); margin: 0; line-height: 1.5; }
 
-    /* ── GALLERY ─────────────────────────────────────────────────── */
-    #gallery { background: var(--dark); }
-    .gallery-grid {
+    /* ── BEFORE / AFTER ─────────────────────────────────────── */
+    #before-after { background: var(--dark-2); }
+    .ba-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem; max-width: 1200px; margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; max-width: 1100px; margin: 3rem auto 0;
     }
-    .gallery-grid .g-item:first-child { grid-row: span 2; }
-    .g-item {
-      position: relative; border-radius: 8px; overflow: hidden;
-      aspect-ratio: 4/3;
-      background: var(--dark-3);
-      border: 1px solid rgba(255,255,255,.05);
-      cursor: pointer; transition: transform .3s, box-shadow .3s, border-color .3s;
+    .ba-card {
+      position: relative; border-radius: 12px; overflow: hidden;
+      aspect-ratio: 4/3; cursor: ew-resize; user-select: none;
+      border: 1px solid rgba(201,162,39,.15);
+      touch-action: pan-y;
     }
-    .g-item:first-child { aspect-ratio: auto; }
-    .g-item:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(0,0,0,.6); border-color: rgba(201,162,39,.2); }
-    .g-ph {
-      width: 100%; height: 100%; min-height: 200px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: .5rem;
-      background: linear-gradient(135deg, #0d0d0d, #161616);
+    .ba-before, .ba-after {
+      position: absolute; inset: 0; width: 100%; height: 100%;
     }
-    .g-ph .ico  { font-size: 3rem; opacity: .12; }
-    .g-ph .lbl  { font-size: .65rem; color: rgba(255,255,255,.1); text-transform: uppercase; letter-spacing: 2.5px; }
-    .g-overlay {
+    .ba-before img, .ba-after img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; display: block; }
+    .ba-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .ba-ph-b { background: linear-gradient(135deg, #0e0e0e 0%, #1a1a14 100%); }
+    .ba-ph-a { background: linear-gradient(135deg, #151508 0%, #2a2410 50%, #1a160a 100%); }
+    .ba-ph-icon { font-size: 3.5rem; opacity: .06; }
+    .ba-after { clip-path: inset(0 50% 0 0); transition: clip-path .03s; }
+    .ba-divider {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      width: 2px; background: var(--gold);
+      transform: translateX(-50%); z-index: 3;
+      transition: left .03s; pointer-events: none;
+    }
+    .ba-handle {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--gold); color: #000;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 16px rgba(0,0,0,.5);
+      z-index: 4; transition: left .03s;
+    }
+    .ba-handle svg { width: 20px; height: 20px; }
+    .ba-chip {
+      position: absolute; bottom: .9rem; z-index: 5;
+      font-size: .68rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1px; padding: .25rem .65rem;
+      background: rgba(0,0,0,.65); border-radius: 4px;
+      backdrop-filter: blur(4px); pointer-events: none;
+    }
+    .ba-chip-l { left: .9rem; color: rgba(255,255,255,.55); }
+    .ba-chip-r { right: .9rem; color: var(--gold); }
+    .ba-hint {
+      text-align: center; margin-top: 1.8rem;
+      font-size: .76rem; color: rgba(255,255,255,.28); display: flex;
+      align-items: center; justify-content: center; gap: .5rem;
+    }
+    .ba-hint svg { width: 16px; height: 16px; opacity: .4; }
+
+    /* ── GALLERY (horizontal scroll) ────────────────────────── */
+    #gallery { background: var(--dark); }
+    .hg-wrap { position: relative; max-width: 1300px; margin: 3rem auto 0; }
+    .hg-track {
+      display: flex; gap: 1.2rem;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: .5rem 2rem 1.5rem;
+      scrollbar-width: none; -ms-overflow-style: none;
+      cursor: grab;
+    }
+    .hg-track::-webkit-scrollbar { display: none; }
+    .hg-track.dragging { cursor: grabbing; }
+    .hg-item {
+      flex-shrink: 0; width: 320px; height: 215px;
+      border-radius: 12px; overflow: hidden; position: relative;
+      scroll-snap-align: start;
+      border: 1px solid rgba(201,162,39,.1);
+      transition: border-color .25s, transform .25s;
+    }
+    .hg-item:hover { border-color: rgba(201,162,39,.28); transform: translateY(-3px); }
+    .hg-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hg-ph {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1c1a0e 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
+    }
+    .hg-ph .hg-ico  { font-size: 2.8rem; opacity: .08; }
+    .hg-ph .hg-lbl  { font-size: .58rem; color: rgba(255,255,255,.08); text-transform: uppercase; letter-spacing: 2px; }
+    .hg-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.82), transparent);
-      opacity: 0; transition: opacity .3s;
-      display: flex; align-items: flex-end; padding: 1.4rem;
+      background: linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 60%);
+      display: flex; align-items: flex-end; padding: .9rem 1rem;
+      opacity: 0; transition: opacity .25s;
     }
-    .g-item:hover .g-overlay { opacity: 1; }
-    .g-overlay span {
-      font-family: 'Montserrat', sans-serif;
-      font-size: .78rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold);
+    .hg-item:hover .hg-overlay { opacity: 1; }
+    .hg-tag { font-size: .68rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+    .hg-nav {
+      display: flex; gap: .6rem; justify-content: center; margin-top: 1.5rem;
     }
-    .gallery-cta { text-align: center; margin-top: 2.5rem; font-size: .82rem; color: rgba(255,255,255,.32); }
+    .hg-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.6); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .hg-btn:hover { background: rgba(201,162,39,.12); border-color: rgba(201,162,39,.3); color: var(--gold); }
+    .hg-btn svg { width: 16px; height: 16px; }
+    .gallery-cta { text-align: center; margin-top: 2rem; font-size: .82rem; color: rgba(255,255,255,.32); }
     .gallery-cta a { color: var(--gold); font-weight: 600; transition: color .2s; }
     .gallery-cta a:hover { color: var(--gold-light); }
 
@@ -665,7 +742,17 @@
       max-width: 520px; margin: 0 auto 3rem;
       color: rgba(255,255,255,.42); font-size: .93rem; line-height: 1.9;
     }
-    .book-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
+    .book-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .guarantee-row { display: flex; justify-content: center; margin-bottom: 3rem; }
+    .guarantee-badge {
+      display: inline-flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.8rem;
+      border: 1px solid rgba(201,162,39,.22);
+      border-radius: 6px;
+      background: rgba(201,162,39,.05);
+    }
+    .gb-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .82rem; letter-spacing: .5px; color: var(--gold); }
+    .gb-sub { font-size: .74rem; color: rgba(255,255,255,.38); margin-top: .2rem; }
     .contact-row {
       display: flex; justify-content: center; flex-wrap: wrap; gap: 2.8rem;
       margin-top: 2.5rem; padding-top: 2.5rem;
@@ -855,6 +942,148 @@
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+
+    /* ── BOOKING MODALS & FORM ───────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 8000;
+      background: rgba(0,0,0,.90);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem; opacity: 0; pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: #0c0c0c;
+      border: 1px solid rgba(201,162,39,.22);
+      border-radius: 14px; padding: 2.5rem;
+      max-width: 520px; width: 100%;
+      position: relative; max-height: 92vh; overflow-y: auto;
+      transform: translateY(24px) scale(.98);
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+      scrollbar-width: thin; scrollbar-color: rgba(201,162,39,.4) transparent;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+    .modal-box-lg { max-width: 680px; }
+    .modal-close {
+      position: absolute; top: 1.1rem; right: 1.1rem;
+      width: 30px; height: 30px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09);
+      border-radius: 50%; cursor: pointer; color: rgba(255,255,255,.45);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, color .2s; padding: 0;
+    }
+    .modal-close:hover { background: rgba(201,162,39,.12); color: var(--gold); }
+    .modal-close svg { width: 13px; height: 13px; }
+    .modal-icon {
+      width: 46px; height: 46px; border-radius: 10px;
+      background: rgba(201,162,39,.1); border: 1px solid rgba(201,162,39,.18);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); margin-bottom: 1.1rem;
+    }
+    .modal-icon svg { width: 22px; height: 22px; }
+    .modal-header { margin-bottom: 1.8rem; }
+    .modal-header h2 {
+      font-family: 'Montserrat', sans-serif; font-size: 1.35rem;
+      font-weight: 800; letter-spacing: .3px; margin-bottom: .35rem;
+    }
+    .modal-header p { font-size: .81rem; color: rgba(255,255,255,.4); }
+    .policy-content { display: flex; flex-direction: column; gap: .8rem; margin-bottom: 2rem; }
+    .policy-item {
+      padding: .95rem 1.1rem;
+      background: rgba(255,255,255,.022); border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px;
+    }
+    .policy-item h4 {
+      font-size: .71rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .5px; color: var(--gold); margin-bottom: .35rem;
+    }
+    .policy-item p { font-size: .81rem; color: rgba(255,255,255,.42); line-height: 1.65; }
+    .policy-item strong { color: rgba(255,255,255,.85); }
+    .policy-actions { display: flex; gap: .7rem; justify-content: flex-end; flex-wrap: wrap; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: .9rem; }
+    .form-group > label {
+      font-family: 'Montserrat', sans-serif; font-size: .7rem;
+      font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+      color: rgba(255,255,255,.48);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1); border-radius: 6px;
+      padding: .72rem 1rem; color: var(--white);
+      font-family: 'Open Sans', sans-serif; font-size: .88rem;
+      width: 100%; transition: border-color .2s, background .2s;
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,.18); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none; border-color: rgba(201,162,39,.5);
+      background: rgba(201,162,39,.03);
+    }
+    .form-group input.err,
+    .form-group select.err { border-color: rgba(239,68,68,.55); }
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.28)' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right .8rem center;
+      background-size: 15px; padding-right: 2.4rem; cursor: pointer;
+    }
+    .form-group select option { background: #111; }
+    .form-group select optgroup { color: rgba(255,255,255,.4); font-size: .75rem; }
+    .form-group textarea { resize: vertical; min-height: 76px; }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.4); cursor: pointer; }
+    .addon-checks { display: flex; flex-direction: column; gap: .5rem; }
+    .addon-check {
+      display: flex; align-items: center; gap: .7rem; cursor: pointer;
+      padding: .7rem .95rem;
+      background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.07);
+      border-radius: 7px; transition: border-color .2s, background .2s;
+      user-select: none;
+    }
+    .addon-check:hover { border-color: rgba(201,162,39,.2); }
+    .addon-check input[type="checkbox"] { display: none; }
+    .check-box {
+      width: 17px; height: 17px; border-radius: 4px; flex-shrink: 0;
+      border: 1.5px solid rgba(255,255,255,.2); position: relative;
+      transition: background .18s, border-color .18s;
+    }
+    .addon-check:has(input:checked) .check-box {
+      background: var(--gold); border-color: var(--gold);
+    }
+    .addon-check:has(input:checked) .check-box::after {
+      content: ''; position: absolute; top: 2px; left: 5px;
+      width: 5px; height: 8px;
+      border-right: 2px solid #000; border-bottom: 2px solid #000;
+      transform: rotate(45deg);
+    }
+    .addon-check:has(input:checked) { border-color: rgba(201,162,39,.28); background: rgba(201,162,39,.04); }
+    .ac-label { font-size: .84rem; color: rgba(255,255,255,.55); }
+    .ac-label em { color: var(--gold); font-style: normal; font-weight: 600; }
+    .addon-check:has(input:checked) .ac-label { color: var(--white); }
+    .form-error { font-size: .78rem; color: #ef4444; margin-bottom: .8rem; line-height: 1.5; }
+    .form-actions { display: flex; flex-direction: column; gap: .65rem; }
+    .btn-full { width: 100%; display: flex !important; justify-content: center; align-items: center; gap: .5rem; }
+    .form-note { font-size: .7rem; color: rgba(255,255,255,.28); text-align: center; }
+    .booking-success {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 1.1rem; text-align: center; padding: 2rem 0;
+    }
+    .success-icon {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(201,162,39,.1); border: 1px solid rgba(201,162,39,.28);
+      display: flex; align-items: center; justify-content: center; color: var(--gold);
+    }
+    .success-icon svg { width: 28px; height: 28px; }
+    .booking-success h3 { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 800; }
+    .booking-success > p { font-size: .84rem; color: rgba(255,255,255,.45); line-height: 1.7; max-width: 340px; }
+    .success-actions { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -1061,7 +1290,7 @@
   <div class="tab-pane active services-grid" id="tab-standard">
     <div class="svc-card reveal d1">
       <span class="popular-badge">⭐ Most Popular</span>
-      <span class="svc-icon">🚗</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0zm10 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0M1 9l3-6h16l3 6v6a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V9zm0 0h22M8 3 6 9m10-6 2 6"/></svg></span>
       <h3>Full Detail</h3>
       <div class="svc-meta">
         <span class="svc-price">$199.99</span>
@@ -1078,7 +1307,7 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
     </div>
     <div class="svc-card reveal d2">
-      <span class="svc-icon">🪣</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 4v4H2M16 4v4h6M2 13h20M8 17v3M16 17v3M8 20h8"/></svg></span>
       <h3>Full Interior Detail</h3>
       <div class="svc-meta">
         <span class="svc-price">$139.99</span>
@@ -1095,7 +1324,7 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Book this service →</a>
     </div>
     <div class="svc-card reveal d3">
-      <span class="svc-icon">✨</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M3 12H5M19 12h2M5.64 5.64l1.41 1.41M16.95 16.95l1.41 1.41M5.64 18.36l1.41-1.41M16.95 7.05l1.41-1.41"/><circle cx="12" cy="12" r="4"/><path d="M12 1v1M12 22v1M1 12h1M22 12h1"/></svg></span>
       <h3>Full Exterior Detail</h3>
       <div class="svc-meta">
         <span class="svc-price">$69.99</span>
@@ -1115,7 +1344,7 @@
 
   <div class="tab-pane services-grid" id="tab-premium">
     <div class="svc-card reveal d1">
-      <span class="svc-icon">💎</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7L12 2z"/><path d="m9 12 2 2 4-4"/></svg></span>
       <h3>5-Year Ceramic Coating</h3>
       <div class="svc-meta">
         <span class="svc-price">$1,299.99</span>
@@ -1133,7 +1362,7 @@
       <span class="svc-badge">Best Value</span>
     </div>
     <div class="svc-card reveal d2">
-      <span class="svc-icon">💠</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7L12 2z"/></svg></span>
       <h3>2-Year Ceramic Coating</h3>
       <div class="svc-meta">
         <span class="svc-price">$999.99</span>
@@ -1151,7 +1380,7 @@
       <span class="svc-badge">Premium</span>
     </div>
     <div class="svc-card reveal d3">
-      <span class="svc-icon">🔧</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
       <h3>2-Step Paint Correction</h3>
       <div class="svc-meta">
         <span class="svc-price">$449.99</span>
@@ -1172,7 +1401,7 @@
 
   <div class="tab-pane addons-grid" id="tab-addons">
     <div class="svc-card reveal d1">
-      <span class="svc-icon">🔩</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></span>
       <h3>Engine Bay Cleaning</h3>
       <div class="svc-meta">
         <span class="svc-price">$50</span>
@@ -1182,7 +1411,7 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Add to booking →</a>
     </div>
     <div class="svc-card reveal d2">
-      <span class="svc-icon">🪄</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
       <h3>Protector Wax</h3>
       <div class="svc-meta">
         <span class="svc-price">$20</span>
@@ -1192,7 +1421,7 @@
       <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="svc-book-link">Add to booking →</a>
     </div>
     <div class="svc-card reveal d3">
-      <span class="svc-icon">🐾</span>
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span>
       <h3>Pet Hair Removal</h3>
       <div class="svc-meta">
         <span class="svc-price">$25</span>
@@ -1248,7 +1477,7 @@
       </div>
       <p>At AD Detailing, we are a South Shore–based business dedicated to delivering premium car detailing services. Our mission is simple: provide high-quality results that make your vehicle look and feel brand new.</p>
       <p>We take pride in our attention to detail, using professional techniques and top-tier products to ensure every vehicle gets treated with care and precision.</p>
-      <p>Located in Châteauguay, we proudly serve the entire Rive-Sud MTL area. Whether it's a daily driver or a showroom piece, we treat every vehicle like our own.</p>
+      <p>Located in Châteauguay, we proudly serve the entire Rive-Sud MTL area. Whether it’s a daily driver or a showroom piece, we treat every vehicle like our own.</p>
       <div class="highlights">
         <div class="hl"><span class="hl-icon">🛡️</span><div><h4>Quality Products</h4><p>Professional-grade products only</p></div></div>
         <div class="hl"><span class="hl-icon">📍</span><div><h4>Châteauguay, QC</h4><p>Serving all of Rive-Sud MTL</p></div></div>
@@ -1257,6 +1486,111 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- ── BEFORE / AFTER ────────────────────────────────────────────────────── -->
+<section id="before-after">
+  <div class="section-hd reveal">
+    <span class="stag">Transformations</span>
+    <h2 class="stitle">See the <span class="gold">Difference</span></h2>
+    <div class="sdivider"></div>
+  </div>
+  <div class="ba-grid" style="padding:0 2rem">
+    <!-- Card 1 — BMW Before / After -->
+    <div class="ba-card reveal d1">
+      <div class="ba-before">
+        <img src="IMG_0178.png" alt="BMW before detailing" loading="lazy" style="object-position: center 38%;">
+      </div>
+      <div class="ba-after">
+        <img src="IMG_0180.png" alt="BMW after detailing" loading="lazy" style="object-position: center 38%;">
+      </div>
+      <div class="ba-divider"><div class="ba-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg></div></div>
+      <span class="ba-chip ba-chip-l">Before</span>
+      <span class="ba-chip ba-chip-r">After</span>
+    </div>
+    <!-- Card 2 -->
+    <div class="ba-card reveal d2">
+      <div class="ba-before">
+        <img src="images/work-3.jpg" alt="Before detail" loading="lazy">
+      </div>
+      <div class="ba-after">
+        <img src="images/work-6.jpg" alt="After detail" loading="lazy">
+      </div>
+      <div class="ba-divider"><div class="ba-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg></div></div>
+      <span class="ba-chip ba-chip-l">Before</span>
+      <span class="ba-chip ba-chip-r">After</span>
+    </div>
+    <!-- Card 3 -->
+    <div class="ba-card reveal d3">
+      <div class="ba-before">
+        <img src="images/work-4.jpg" alt="Before detail" loading="lazy">
+      </div>
+      <div class="ba-after">
+        <img src="images/work-7.jpg" alt="After detail" loading="lazy">
+      </div>
+      <div class="ba-divider"><div class="ba-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg></div></div>
+      <span class="ba-chip ba-chip-l">Before</span>
+      <span class="ba-chip ba-chip-r">After</span>
+    </div>
+  </div>
+  <p class="ba-hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg>
+    Drag the handle to compare before &amp; after
+  </p>
+</section>
+
+<!-- ── GALLERY ────────────────────────────────────────────────────────────── -->
+<section id="gallery">
+  <div class="section-hd reveal">
+    <span class="stag">Portfolio</span>
+    <h2 class="stitle">Our <span class="gold">Work</span></h2>
+    <div class="sdivider"></div>
+  </div>
+  <div class="hg-wrap">
+    <div class="hg-track" id="hg-track">
+      <div class="hg-item reveal d1">
+        <img src="images/work-1.jpg" alt="AD Detailing work" loading="lazy">
+        <div class="hg-overlay"><span class="hg-tag">Detailing</span></div>
+      </div>
+      <div class="hg-item reveal d1">
+        <img src="images/work-2.jpg" alt="AD Detailing work" loading="lazy">
+        <div class="hg-overlay"><span class="hg-tag">Detailing</span></div>
+      </div>
+      <div class="hg-item reveal d2">
+        <img src="images/work-3.jpg" alt="AD Detailing work" loading="lazy">
+        <div class="hg-overlay"><span class="hg-tag">Detailing</span></div>
+      </div>
+      <div class="hg-item reveal d2">
+        <img src="images/work-4.jpg" alt="AD Detailing work" loading="lazy">
+        <div class="hg-overlay"><span class="hg-tag">Detailing</span></div>
+      </div>
+      <div class="hg-item reveal d3">
+        <img src="images/work-5.jpg" alt="AD Detailing work" loading="lazy">
+        <div class="hg-overlay"><span class="hg-tag">Detailing</span></div>
+      </div>
+      <div class="hg-item reveal d3">
+        <img src="images/work-6.jpg" alt="AD Detailing work" loading="lazy">
+        <div class="hg-overlay"><span class="hg-tag">Detailing</span></div>
+      </div>
+      <div class="hg-item reveal d3">
+        <img src="images/work-7.jpg" alt="AD Detailing work" loading="lazy">
+        <div class="hg-overlay"><span class="hg-tag">Detailing</span></div>
+      </div>
+      <div class="hg-item reveal d3">
+        <img src="images/work-8.jpg" alt="AD Detailing work" loading="lazy">
+        <div class="hg-overlay"><span class="hg-tag">Detailing</span></div>
+      </div>
+    </div>
+    <div class="hg-nav">
+      <button class="hg-btn" id="hg-prev" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button class="hg-btn" id="hg-next" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <p class="gallery-cta">Follow us on <a href="https://www.instagram.com/ad_detaiils._" target="_blank" rel="noopener">@ad_detaiils._</a> for more</p>
 </section>
 
 <!-- ── REVIEWS ────────────────────────────────────────────────────────────── -->
@@ -1288,7 +1622,7 @@
     <div class="rv-card reveal d3">
       <span class="rv-quote">&ldquo;</span>
       <div class="rv-stars">★★★★★</div>
-      <p class="rv-text">They detailed my car inside and out — amazing job. The team was punctual, professional, and the price was very fair. Will definitely be back every season.</p>
+      <p class="rv-text">They detailed my RV inside and out — amazing job. The team was punctual, professional, and the price was very fair. Will definitely be back every season.</p>
       <div class="rv-author">
         <div class="rv-avatar">J</div>
         <div><div class="rv-name">Jean-Pierre L.</div><div class="rv-date">Google Review</div></div>
@@ -1307,7 +1641,16 @@
   <p class="sub reveal">Ready to transform your vehicle? Book online in minutes or give us a call — we'll find a time that works for you.</p>
   <div class="book-btns reveal d1">
     <a href="https://addetailing.setmore.com" target="_blank" rel="noopener" class="btn-primary">Book Online Now</a>
-    <a href="tel:+15145039296" class="btn-outline">&#128222; Call 514-503-9296</a>
+    <a href="tel:+15145039296" class="btn-outline"><svg style="width:1rem;height:1rem;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 3h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 10.6a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 514-503-9296</a>
+  </div>
+  <div class="guarantee-row reveal d2">
+    <div class="guarantee-badge">
+      <svg style="width:1.6rem;height:1.6rem;color:var(--gold);flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7L12 2z"/><path d="m9 12 2 2 4-4"/></svg>
+      <div>
+        <div class="gb-title">100% Satisfaction Guaranteed</div>
+        <div class="gb-sub">Not happy? We make it right — no questions asked.</div>
+      </div>
+    </div>
   </div>
   <div class="contact-row reveal d2">
     <div class="ci"><span class="ico">📍</span><span>153 rue Jean-Talon, Châteauguay, QC</span></div>
@@ -1366,6 +1709,164 @@
     </div>
   </div>
 </footer>
+
+<!-- ── POLICY MODAL ──────────────────────────────────────────────── -->
+<div id="policy-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="policy-title">
+  <div class="modal-box">
+    <button class="modal-close" id="policy-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7L12 2z"/><path d="m9 12 2 2 4-4"/></svg>
+    </div>
+    <div class="modal-header">
+      <h2 id="policy-title">Booking Policy</h2>
+      <p>Please read and accept before booking your appointment</p>
+    </div>
+    <div class="policy-content">
+      <div class="policy-item">
+        <h4>Cancellation Policy</h4>
+        <p>We require <strong>24 hours notice</strong> to cancel or reschedule. No-shows and late cancellations may be charged the full service price.</p>
+      </div>
+      <div class="policy-item">
+        <h4>Vehicle Condition</h4>
+        <p>Additional fees may apply for vehicles with excessive pet hair, severe contamination, or conditions beyond standard service scope. You will be informed before any extra charges.</p>
+      </div>
+      <div class="policy-item">
+        <h4>Payment</h4>
+        <p>Payment is due upon completion. We accept cash, credit/debit card, and Interac e-Transfer.</p>
+      </div>
+      <div class="policy-item">
+        <h4>Confirmation</h4>
+        <p>Booking requests are confirmed by phone or SMS within 1 hour during business hours (8 AM – 8 PM, 7 days).</p>
+      </div>
+    </div>
+    <div class="policy-actions">
+      <button class="btn-outline" id="policy-decline">Decline</button>
+      <button class="btn-primary" id="policy-accept">I Accept &mdash; Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── BOOKING MODAL ─────────────────────────────────────────────── -->
+<div id="booking-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="bm-title">
+  <div class="modal-box modal-box-lg">
+    <button class="modal-close" id="booking-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-header">
+      <h2 id="bm-title">Book Your Appointment</h2>
+      <p>Fill in your details &mdash; we'll confirm by phone or SMS within 1 hour</p>
+    </div>
+    <form id="booking-form" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="bf-fname">First Name *</label>
+          <input type="text" id="bf-fname" name="firstName" required autocomplete="given-name" placeholder="John">
+        </div>
+        <div class="form-group">
+          <label for="bf-lname">Last Name *</label>
+          <input type="text" id="bf-lname" name="lastName" required autocomplete="family-name" placeholder="Doe">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="bf-phone">Phone Number *</label>
+          <input type="tel" id="bf-phone" name="phone" required autocomplete="tel" placeholder="514-XXX-XXXX" inputmode="tel">
+        </div>
+        <div class="form-group">
+          <label for="bf-car">Car Model *</label>
+          <input type="text" id="bf-car" name="car" required placeholder="e.g. Honda Civic 2021">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="bf-date">Preferred Date *</label>
+          <input type="date" id="bf-date" name="date" required>
+        </div>
+        <div class="form-group">
+          <label for="bf-time">Preferred Time *</label>
+          <select id="bf-time" name="time" required>
+            <option value="">Select a time</option>
+            <option value="8:00 AM">8:00 AM</option>
+            <option value="9:00 AM">9:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="1:00 PM">1:00 PM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <option value="3:00 PM">3:00 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+            <option value="5:00 PM">5:00 PM</option>
+            <option value="6:00 PM">6:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="bf-service">Service *</label>
+        <select id="bf-service" name="service" required>
+          <option value="">Select a service</option>
+          <optgroup label="── Standard ──">
+            <option value="Full Detail ($199.99)">Full Detail — $199.99</option>
+            <option value="Full Interior Detail ($139.99)">Full Interior Detail — $139.99</option>
+            <option value="Full Exterior Detail ($69.99)">Full Exterior Detail — $69.99</option>
+          </optgroup>
+          <optgroup label="── Premium ──">
+            <option value="5-Year Ceramic Coating ($1,299.99)">5-Year Ceramic Coating — $1,299.99</option>
+            <option value="2-Year Ceramic Coating ($999.99)">2-Year Ceramic Coating — $999.99</option>
+            <option value="2-Step Paint Correction ($449.99)">2-Step Paint Correction — $449.99</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Add-Ons <span style="text-transform:none;letter-spacing:0;font-weight:400;color:rgba(255,255,255,.28)">(Optional)</span></label>
+        <div class="addon-checks">
+          <label class="addon-check">
+            <input type="checkbox" name="addons" value="Engine Bay Cleaning (+$50)">
+            <span class="check-box"></span>
+            <span class="ac-label">Engine Bay Cleaning <em>+$50</em></span>
+          </label>
+          <label class="addon-check">
+            <input type="checkbox" name="addons" value="Protector Wax (+$20)">
+            <span class="check-box"></span>
+            <span class="ac-label">Protector Wax <em>+$20</em></span>
+          </label>
+          <label class="addon-check">
+            <input type="checkbox" name="addons" value="Pet Hair Removal (+$25)">
+            <span class="check-box"></span>
+            <span class="ac-label">Pet Hair Removal <em>+$25</em></span>
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="bf-comments">Comments / Notes</label>
+        <textarea id="bf-comments" name="comments" rows="3" placeholder="Any specific concerns, damage, or special requests..."></textarea>
+      </div>
+      <div class="form-error" id="form-error" role="alert"></div>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary btn-full" id="form-submit">
+          <span id="submit-text">Confirm Booking Request</span>
+          <svg id="submit-spinner" style="display:none;width:1rem;height:1rem;animation:spin 1s linear infinite;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        </button>
+        <p class="form-note">Confirmed by phone within 1 hour &nbsp;·&nbsp; 8 AM – 8 PM, 7 days</p>
+      </div>
+    </form>
+    <div id="booking-success" class="booking-success" style="display:none">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h3>Booking Request Sent!</h3>
+      <p>We've received your request. You'll get an SMS confirmation shortly and we'll call to confirm your appointment time.</p>
+      <div class="success-actions">
+        <a href="tel:+15145039296" class="btn-outline" style="display:inline-flex;align-items:center;gap:.4rem">
+          <svg style="width:1rem;height:1rem;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 3h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 10.6a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          514-503-9296
+        </a>
+        <button class="btn-primary" id="success-close">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ── FLOATING CTA ───────────────────────────────────────────────────────────────── -->
 <a id="fab" href="https://addetailing.setmore.com" target="_blank" rel="noopener">
@@ -1540,6 +2041,195 @@ window.addEventListener('scroll', () => {
     a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--gold)' : '';
   });
 }, { passive: true });
+
+// ── BEFORE / AFTER SLIDERS ─────────────────────────────────────────────
+document.querySelectorAll('.ba-card').forEach(function(card) {
+  var dragging = false;
+  var divider  = card.querySelector('.ba-divider');
+  var handle   = card.querySelector('.ba-handle');
+  var after    = card.querySelector('.ba-after');
+
+  function setPos(pct) {
+    pct = Math.max(4, Math.min(96, pct));
+    divider.style.left = pct + '%';
+    handle.style.left  = pct + '%';
+    after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+  }
+
+  function getPct(e) {
+    var rect = card.getBoundingClientRect();
+    var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    return (x / rect.width) * 100;
+  }
+
+  card.addEventListener('mousedown',  function(e) { dragging = true; setPos(getPct(e)); });
+  card.addEventListener('touchstart', function(e) { dragging = true; setPos(getPct(e)); }, { passive: true });
+  window.addEventListener('mousemove',  function(e) { if (dragging) setPos(getPct(e)); });
+  window.addEventListener('touchmove',  function(e) { if (dragging) setPos(getPct(e)); }, { passive: true });
+  window.addEventListener('mouseup',  function() { dragging = false; });
+  window.addEventListener('touchend', function() { dragging = false; });
+});
+
+// ── HORIZONTAL GALLERY ─────────────────────────────────────────────────
+(function() {
+  var track = document.getElementById('hg-track');
+  if (!track) return;
+
+  // Arrow navigation
+  document.getElementById('hg-prev').addEventListener('click', function() {
+    track.scrollBy({ left: -340, behavior: 'smooth' });
+  });
+  document.getElementById('hg-next').addEventListener('click', function() {
+    track.scrollBy({ left: 340, behavior: 'smooth' });
+  });
+
+  // Mouse drag-to-scroll
+  var isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', function(e) {
+    isDown = true; track.classList.add('dragging');
+    startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft;
+  });
+  track.addEventListener('mouseleave', function() { isDown = false; track.classList.remove('dragging'); });
+  track.addEventListener('mouseup',    function() { isDown = false; track.classList.remove('dragging'); });
+  track.addEventListener('mousemove',  function(e) {
+    if (!isDown) return;
+    e.preventDefault();
+    var x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  });
+})();
+
+// ── BOOKING SYSTEM ─────────────────────────────────────────────────────
+// Replace this URL after deploying your Google Apps Script (see booking-setup/Code.gs)
+var APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL';
+
+var _pendingService = '';
+
+function openPolicyModal(service) {
+  _pendingService = service || '';
+  document.getElementById('policy-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openBookingModal() {
+  document.getElementById('policy-modal').classList.remove('open');
+  document.getElementById('booking-modal').classList.add('open');
+  if (_pendingService) {
+    var sel = document.getElementById('bf-service');
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value === _pendingService) { sel.selectedIndex = i; break; }
+    }
+  }
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var pad = function(n) { return ('0' + n).slice(-2); };
+  document.getElementById('bf-date').min =
+    tomorrow.getFullYear() + '-' + pad(tomorrow.getMonth() + 1) + '-' + pad(tomorrow.getDate());
+}
+
+function resetAndCloseModals() {
+  document.getElementById('policy-modal').classList.remove('open');
+  document.getElementById('booking-modal').classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(function() {
+    document.getElementById('booking-form').style.display = '';
+    document.getElementById('booking-success').style.display = 'none';
+    document.getElementById('booking-form').reset();
+    document.getElementById('form-error').textContent = '';
+    document.querySelectorAll('#booking-form .err').forEach(function(el) { el.classList.remove('err'); });
+  }, 320);
+}
+
+// Intercept Setmore links — service cards go straight to Setmore, others open modal
+document.querySelectorAll('a[href*="setmore.com"]').forEach(function(link) {
+  if (link.closest('.svc-card')) return; // let service card links open Setmore directly
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    openPolicyModal('');
+  });
+});
+
+document.getElementById('policy-accept').addEventListener('click', openBookingModal);
+document.getElementById('policy-decline').addEventListener('click', resetAndCloseModals);
+document.getElementById('policy-close').addEventListener('click', resetAndCloseModals);
+document.getElementById('booking-close').addEventListener('click', resetAndCloseModals);
+document.getElementById('success-close').addEventListener('click', resetAndCloseModals);
+
+document.getElementById('policy-modal').addEventListener('click', function(e) {
+  if (e.target === this) resetAndCloseModals();
+});
+document.getElementById('booking-modal').addEventListener('click', function(e) {
+  if (e.target === this) resetAndCloseModals();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') resetAndCloseModals();
+});
+
+// Form submit
+document.getElementById('booking-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var errorEl = document.getElementById('form-error');
+  errorEl.textContent = '';
+  this.querySelectorAll('.err').forEach(function(el) { el.classList.remove('err'); });
+
+  var required = ['bf-fname','bf-lname','bf-phone','bf-car','bf-date','bf-time','bf-service'];
+  var missing = [];
+  required.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el.value.trim()) { el.classList.add('err'); missing.push(el.labels[0].textContent.replace('*','').trim()); }
+  });
+  if (missing.length) { errorEl.textContent = 'Please fill in: ' + missing.join(', '); return; }
+
+  var addons = Array.from(this.querySelectorAll('input[name="addons"]:checked'))
+    .map(function(cb) { return cb.value; }).join(', ') || 'None';
+
+  var data = {
+    firstName: document.getElementById('bf-fname').value.trim(),
+    lastName:  document.getElementById('bf-lname').value.trim(),
+    phone:     document.getElementById('bf-phone').value.trim(),
+    car:       document.getElementById('bf-car').value.trim(),
+    date:      document.getElementById('bf-date').value,
+    time:      document.getElementById('bf-time').value,
+    service:   document.getElementById('bf-service').value,
+    addons:    addons,
+    comments:  document.getElementById('bf-comments').value.trim() || 'None'
+  };
+
+  var btn     = document.getElementById('form-submit');
+  var txt     = document.getElementById('submit-text');
+  var spinner = document.getElementById('submit-spinner');
+  btn.disabled = true;
+  txt.textContent = 'Sending...';
+  spinner.style.display = 'inline-block';
+
+  var showSuccess = function() {
+    document.getElementById('booking-form').style.display = 'none';
+    document.getElementById('booking-success').style.display = 'flex';
+    btn.disabled = false; txt.textContent = 'Confirm Booking Request'; spinner.style.display = 'none';
+  };
+  var showError = function(msg) {
+    errorEl.textContent = msg;
+    btn.disabled = false; txt.textContent = 'Confirm Booking Request'; spinner.style.display = 'none';
+  };
+
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL') {
+    setTimeout(showSuccess, 1400); return;
+  }
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.success) showSuccess();
+    else showError('Something went wrong. Please call us at 514-503-9296.');
+  })
+  .catch(function() {
+    showError('Connection error. Please call us at 514-503-9296.');
+  });
+});
 </script>
 </body>
 </html>
