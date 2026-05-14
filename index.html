@@ -842,10 +842,10 @@
     #fab:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 8px 36px rgba(201,162,39,.55); }
 
     /* ── REVEAL ──────────────────────────────────────────────────── */
-    .reveal       { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
-    .reveal-l     { opacity: 0; transform: translateX(-40px); transition: opacity .75s ease, transform .75s ease; }
-    .reveal-r     { opacity: 0; transform: translateX(40px);  transition: opacity .75s ease, transform .75s ease; }
-    .vis          { opacity: 1 !important; transform: none !important; }
+    .reveal       { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; will-change: opacity, transform; }
+    .reveal-l     { opacity: 0; transform: translateX(-28px); transition: opacity .55s ease, transform .55s ease; will-change: opacity, transform; }
+    .reveal-r     { opacity: 0; transform: translateX(28px);  transition: opacity .55s ease, transform .55s ease; will-change: opacity, transform; }
+    .vis          { opacity: 1 !important; transform: none !important; will-change: auto; }
     .d1 { transition-delay: .1s; }
     .d2 { transition-delay: .2s; }
     .d3 { transition-delay: .3s; }
@@ -1299,7 +1299,6 @@
       <p>The complete package — interior and exterior done right, top to bottom.</p>
       <ul>
         <li>Full interior deep clean</li>
-        <li>Steam cleaning &amp; sanitizing</li>
         <li>Hand wash &amp; blow dry</li>
         <li>Tire &amp; wheel detail</li>
         <li>Paint sealant &amp; wax</li>
@@ -1316,7 +1315,6 @@
       <p>Full deep clean of every surface inside your vehicle — spotless and fresh.</p>
       <ul>
         <li>Full vacuum (seats, trunk, mats)</li>
-        <li>Steam cleaning &amp; sanitizing</li>
         <li>Dashboard &amp; console detail</li>
         <li>Leather conditioning</li>
         <li>Interior glass cleaning</li>
@@ -1495,42 +1493,18 @@
     <h2 class="stitle">See the <span class="gold">Difference</span></h2>
     <div class="sdivider"></div>
   </div>
-  <div class="ba-grid" style="padding:0 2rem">
-    <!-- Card 1 — BMW Before / After -->
-    <div class="ba-card reveal d1">
+  <div class="ba-grid" style="padding:0 2rem;grid-template-columns:minmax(0,780px);justify-content:center">
+    <!-- BMW — After shown left, Before revealed on drag right -->
+    <div class="ba-card">
       <div class="ba-before">
-        <img src="IMG_0178.png" alt="BMW before detailing" loading="lazy" style="object-position: center 38%;">
-      </div>
-      <div class="ba-after">
         <img src="IMG_0180.png" alt="BMW after detailing" loading="lazy" style="object-position: center 38%;">
       </div>
-      <div class="ba-divider"><div class="ba-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg></div></div>
-      <span class="ba-chip ba-chip-l">Before</span>
-      <span class="ba-chip ba-chip-r">After</span>
-    </div>
-    <!-- Card 2 -->
-    <div class="ba-card reveal d2">
-      <div class="ba-before">
-        <img src="images/work-3.jpg" alt="Before detail" loading="lazy">
-      </div>
       <div class="ba-after">
-        <img src="images/work-6.jpg" alt="After detail" loading="lazy">
+        <img src="IMG_0178.png" alt="BMW before detailing" loading="lazy" style="object-position: center 38%;">
       </div>
       <div class="ba-divider"><div class="ba-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg></div></div>
-      <span class="ba-chip ba-chip-l">Before</span>
-      <span class="ba-chip ba-chip-r">After</span>
-    </div>
-    <!-- Card 3 -->
-    <div class="ba-card reveal d3">
-      <div class="ba-before">
-        <img src="images/work-4.jpg" alt="Before detail" loading="lazy">
-      </div>
-      <div class="ba-after">
-        <img src="images/work-7.jpg" alt="After detail" loading="lazy">
-      </div>
-      <div class="ba-divider"><div class="ba-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg></div></div>
-      <span class="ba-chip ba-chip-l">Before</span>
-      <span class="ba-chip ba-chip-r">After</span>
+      <span class="ba-chip ba-chip-l">After</span>
+      <span class="ba-chip ba-chip-r">Before</span>
     </div>
   </div>
   <p class="ba-hint">
@@ -1980,20 +1954,29 @@ class Particle {
   }
 }
 
-const particles = Array.from({ length: 120 }, () => new Particle());
+canvas.style.willChange = 'transform';
+canvas.style.transform  = 'translateZ(0)';
+const particles = Array.from({ length: 55 }, () => new Particle());
+let rafId;
 (function frame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles.forEach(p => { p.step(); p.draw(); });
-  requestAnimationFrame(frame);
+  rafId = requestAnimationFrame(frame);
 })();
 
 document.querySelectorAll('.svc-card').forEach(card => {
+  let rafPending = false;
   card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width  - 0.5;
-    const y = (e.clientY - r.top)  / r.height - 0.5;
-    card.style.transform = `translateY(-6px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
-  });
+    if (rafPending) return;
+    rafPending = true;
+    requestAnimationFrame(() => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - 0.5;
+      const y = (e.clientY - r.top)  / r.height - 0.5;
+      card.style.transform = `translateY(-6px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg)`;
+      rafPending = false;
+    });
+  }, { passive: true });
   card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
