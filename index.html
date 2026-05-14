@@ -1684,9 +1684,9 @@
   </div>
 </footer>
 
-<!-- ── POLICY MODAL ──────────────────────────────────────────────── -->
-<div id="policy-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="policy-title">
-  <div class="modal-box">
+<!-- ── MODALS REMOVED — all booking goes directly to Setmore ── -->
+<div style="display:none">
+  <div>
     <button class="modal-close" id="policy-close" aria-label="Close">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
@@ -2082,136 +2082,10 @@ document.querySelectorAll('.ba-card').forEach(function(card) {
   });
 })();
 
-// ── BOOKING SYSTEM ─────────────────────────────────────────────────────
-// Replace this URL after deploying your Google Apps Script (see booking-setup/Code.gs)
-var APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL';
-
-var _pendingService = '';
-
-function openPolicyModal(service) {
-  _pendingService = service || '';
-  document.getElementById('policy-modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function openBookingModal() {
-  document.getElementById('policy-modal').classList.remove('open');
-  document.getElementById('booking-modal').classList.add('open');
-  if (_pendingService) {
-    var sel = document.getElementById('bf-service');
-    for (var i = 0; i < sel.options.length; i++) {
-      if (sel.options[i].value === _pendingService) { sel.selectedIndex = i; break; }
-    }
-  }
-  var tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  var pad = function(n) { return ('0' + n).slice(-2); };
-  document.getElementById('bf-date').min =
-    tomorrow.getFullYear() + '-' + pad(tomorrow.getMonth() + 1) + '-' + pad(tomorrow.getDate());
-}
-
-function resetAndCloseModals() {
-  document.getElementById('policy-modal').classList.remove('open');
-  document.getElementById('booking-modal').classList.remove('open');
-  document.body.style.overflow = '';
-  setTimeout(function() {
-    document.getElementById('booking-form').style.display = '';
-    document.getElementById('booking-success').style.display = 'none';
-    document.getElementById('booking-form').reset();
-    document.getElementById('form-error').textContent = '';
-    document.querySelectorAll('#booking-form .err').forEach(function(el) { el.classList.remove('err'); });
-  }, 320);
-}
-
-// Intercept Setmore links — service cards go straight to Setmore, others open modal
+// ── BOOKING: all Book Now buttons → Setmore ────────────────────────────
 document.querySelectorAll('a[href*="setmore.com"]').forEach(function(link) {
-  if (link.closest('.svc-card')) return; // let service card links open Setmore directly
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    openPolicyModal('');
-  });
-});
-
-document.getElementById('policy-accept').addEventListener('click', openBookingModal);
-document.getElementById('policy-decline').addEventListener('click', resetAndCloseModals);
-document.getElementById('policy-close').addEventListener('click', resetAndCloseModals);
-document.getElementById('booking-close').addEventListener('click', resetAndCloseModals);
-document.getElementById('success-close').addEventListener('click', resetAndCloseModals);
-
-document.getElementById('policy-modal').addEventListener('click', function(e) {
-  if (e.target === this) resetAndCloseModals();
-});
-document.getElementById('booking-modal').addEventListener('click', function(e) {
-  if (e.target === this) resetAndCloseModals();
-});
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') resetAndCloseModals();
-});
-
-// Form submit
-document.getElementById('booking-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var errorEl = document.getElementById('form-error');
-  errorEl.textContent = '';
-  this.querySelectorAll('.err').forEach(function(el) { el.classList.remove('err'); });
-
-  var required = ['bf-fname','bf-lname','bf-phone','bf-car','bf-date','bf-time','bf-service'];
-  var missing = [];
-  required.forEach(function(id) {
-    var el = document.getElementById(id);
-    if (!el.value.trim()) { el.classList.add('err'); missing.push(el.labels[0].textContent.replace('*','').trim()); }
-  });
-  if (missing.length) { errorEl.textContent = 'Please fill in: ' + missing.join(', '); return; }
-
-  var addons = Array.from(this.querySelectorAll('input[name="addons"]:checked'))
-    .map(function(cb) { return cb.value; }).join(', ') || 'None';
-
-  var data = {
-    firstName: document.getElementById('bf-fname').value.trim(),
-    lastName:  document.getElementById('bf-lname').value.trim(),
-    phone:     document.getElementById('bf-phone').value.trim(),
-    car:       document.getElementById('bf-car').value.trim(),
-    date:      document.getElementById('bf-date').value,
-    time:      document.getElementById('bf-time').value,
-    service:   document.getElementById('bf-service').value,
-    addons:    addons,
-    comments:  document.getElementById('bf-comments').value.trim() || 'None'
-  };
-
-  var btn     = document.getElementById('form-submit');
-  var txt     = document.getElementById('submit-text');
-  var spinner = document.getElementById('submit-spinner');
-  btn.disabled = true;
-  txt.textContent = 'Sending...';
-  spinner.style.display = 'inline-block';
-
-  var showSuccess = function() {
-    document.getElementById('booking-form').style.display = 'none';
-    document.getElementById('booking-success').style.display = 'flex';
-    btn.disabled = false; txt.textContent = 'Confirm Booking Request'; spinner.style.display = 'none';
-  };
-  var showError = function(msg) {
-    errorEl.textContent = msg;
-    btn.disabled = false; txt.textContent = 'Confirm Booking Request'; spinner.style.display = 'none';
-  };
-
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL') {
-    setTimeout(showSuccess, 1400); return;
-  }
-
-  fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(res) {
-    if (res.success) showSuccess();
-    else showError('Something went wrong. Please call us at 514-503-9296.');
-  })
-  .catch(function() {
-    showError('Connection error. Please call us at 514-503-9296.');
-  });
+  link.setAttribute('target', '_blank');
+  link.setAttribute('rel', 'noopener');
 });
 </script>
 </body>
