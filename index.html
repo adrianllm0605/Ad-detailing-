@@ -12,7 +12,7 @@
     :root {
       --gold:       #C9A227;
       --gold-light: #F0C040;
-      --blue:       #1E6BFF;
+      --blue:       #1AABFF;
       --dark:       #050505;
       --dark-2:     #0d0d0d;
       --dark-3:     #141414;
@@ -141,7 +141,7 @@
       position: absolute; inset: 0; z-index: 1;
       background:
         radial-gradient(ellipse at 68% 45%, rgba(201,162,39,.11) 0%, transparent 50%),
-        radial-gradient(ellipse at 25% 65%, rgba(30,107,255,.07) 0%, transparent 48%),
+        radial-gradient(ellipse at 25% 65%, rgba(26,171,255,.07) 0%, transparent 48%),
         radial-gradient(ellipse at 50% 105%, rgba(0,0,0,.9) 0%, transparent 55%);
     }
     #hero::after {
@@ -161,13 +161,13 @@
       width: min(420px, 42vw); height: auto;
       mix-blend-mode: screen;
       filter: drop-shadow(0 0 50px rgba(201,162,39,.5))
-              drop-shadow(0 0 100px rgba(30,107,255,.22));
+              drop-shadow(0 0 100px rgba(26,171,255,.22));
       animation: heroFloat 5.5s ease-in-out infinite;
     }
     .hero-logo-svg {
       width: min(380px, 40vw); height: auto;
       filter: drop-shadow(0 0 50px rgba(201,162,39,.5))
-              drop-shadow(0 0 100px rgba(30,107,255,.22));
+              drop-shadow(0 0 100px rgba(26,171,255,.22));
       animation: heroFloat 5.5s ease-in-out infinite;
     }
     @keyframes heroFloat {
@@ -282,6 +282,12 @@
       margin-bottom: 1rem;
       border-left: 2px solid var(--blue);
       padding-left: .6rem;
+      background: linear-gradient(90deg, #b8860b 0%, var(--gold-light) 35%, var(--gold) 55%, #b8860b 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmerSweep 3.5s linear infinite;
     }
     .stitle {
       font-family: 'Playfair Display', serif;
@@ -544,7 +550,7 @@
       object-fit: contain;
       mix-blend-mode: screen;
       filter: drop-shadow(0 0 38px rgba(201,162,39,.38))
-              drop-shadow(0 0 72px rgba(30,107,255,.16));
+              drop-shadow(0 0 72px rgba(26,171,255,.16));
     }
     .logo-ring {
       width: 280px; height: 280px; border-radius: 50%;
@@ -879,14 +885,14 @@
     #splash::after {
       content: ''; position: absolute;
       width: 500px; height: 500px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(30,107,255,.05) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(26,171,255,.05) 0%, transparent 65%);
       top: 60%; left: 50%; transform: translate(-50%, -50%);
       pointer-events: none;
     }
     .spl-logo {
       width: 240px; height: auto;
       filter: drop-shadow(0 0 36px rgba(201,162,39,.38))
-              drop-shadow(0 0 72px rgba(30,107,255,.2));
+              drop-shadow(0 0 72px rgba(26,171,255,.2));
       animation: splPop .95s cubic-bezier(.34,1.56,.64,1) both;
       margin-bottom: 1.8rem; position: relative; z-index: 1;
     }
@@ -1084,9 +1090,127 @@
     .booking-success > p { font-size: .84rem; color: rgba(255,255,255,.45); line-height: 1.7; max-width: 340px; }
     .success-actions { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── PROGRESS BAR ──────────────────────────────────────────────── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; z-index: 9998; height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--blue), var(--gold));
+      box-shadow: 0 0 12px rgba(26,171,255,.55), 0 0 22px rgba(201,162,39,.35);
+      pointer-events: none; will-change: width;
+    }
+
+    /* ── SHIMMER KEYFRAME ──────────────────────────────────────────── */
+    @keyframes shimmerSweep {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+
+    /* ── FLOATING ORBS ─────────────────────────────────────────────── */
+    .float-orb {
+      position: absolute; border-radius: 50%;
+      pointer-events: none; z-index: 0; will-change: transform;
+    }
+    @keyframes orbFloat1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%  { transform: translate(38px,-55px) scale(1.06); }
+      66%  { transform: translate(-24px,28px) scale(.95); }
+    }
+    @keyframes orbFloat2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      40%  { transform: translate(-52px,42px) scale(1.08); }
+      72%  { transform: translate(30px,-28px) scale(.93); }
+    }
+    @keyframes orbFloat3 {
+      0%,100% { transform: translate(0,0); }
+      50%  { transform: translate(20px,46px); }
+    }
+
+    /* ── FLOATING GLASS CARDS (hero, desktop only) ─────────────────── */
+    .hero-float-card {
+      position: absolute; z-index: 3; pointer-events: none;
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,.11); border-radius: 14px;
+      padding: .75rem 1.15rem; display: flex; align-items: center; gap: .7rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,.35);
+    }
+    .hero-float-card .hfc-icon { font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+    .hero-float-card .hfc-lbl  { font-size: .57rem; color: rgba(255,255,255,.38); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: .2rem; }
+    .hero-float-card .hfc-val  { font-family: 'Montserrat', sans-serif; font-size: .86rem; font-weight: 800; color: var(--white); line-height: 1.1; }
+    @keyframes hfcFloat1 {
+      0%,100% { transform: translateY(0)   rotate(-1deg); }
+      50%  { transform: translateY(-14px) rotate(0deg); }
+    }
+    @keyframes hfcFloat2 {
+      0%,100% { transform: translateY(0)   rotate(1.5deg); }
+      50%  { transform: translateY(-11px) rotate(.3deg); }
+    }
+    @media (max-width: 960px) { .hero-float-card { display: none; } }
+
+    /* ── PULSING GLOW ON BTN-PRIMARY ───────────────────────────────── */
+    @keyframes btnGlowPulse {
+      0%,100% { box-shadow: 0 4px 28px rgba(201,162,39,.28); }
+      50%  { box-shadow: 0 4px 52px rgba(201,162,39,.65), 0 0 90px rgba(201,162,39,.18); }
+    }
+    .btn-primary          { animation: btnGlowPulse 3.5s ease-in-out infinite; }
+    .btn-primary:hover    { animation: none; }
+
+    /* ── LOGO RING BREATHING ───────────────────────────────────────── */
+    @keyframes ringBreath {
+      0%,100% { box-shadow: 0 0 80px rgba(201,162,39,.1), inset 0 0 40px rgba(201,162,39,.03); }
+      50%  { box-shadow: 0 0 140px rgba(201,162,39,.24), 0 0 60px rgba(26,171,255,.14), inset 0 0 55px rgba(201,162,39,.07); }
+    }
+    .logo-ring { animation: ringBreath 4.5s ease-in-out infinite; }
+
+    /* ── CARD SHINE SWEEP ──────────────────────────────────────────── */
+    .svc-card::after {
+      content: ''; position: absolute; top: 0; left: -120%; width: 55%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.055), transparent);
+      transform: skewX(-18deg); transition: left .7s ease;
+      pointer-events: none; z-index: 1;
+    }
+    .svc-card:hover::after { left: 165%; }
+
+    /* ── STAT FLOAT ────────────────────────────────────────────────── */
+    @keyframes statFloat {
+      0%,100% { transform: translateY(0); }
+      50%  { transform: translateY(-5px); }
+    }
+    .stat-item:nth-child(1) { animation: statFloat 3.6s ease-in-out infinite; }
+    .stat-item:nth-child(2) { animation: statFloat 4.1s ease-in-out  .6s infinite; }
+    .stat-item:nth-child(3) { animation: statFloat 3.9s ease-in-out 1.2s infinite; }
+    .stat-item:nth-child(4) { animation: statFloat 4.4s ease-in-out 1.8s infinite; }
+
+    /* ── HERO BLUE GLOW TEXT ───────────────────────────────────────── */
+    .hero-title .blue {
+      text-shadow: 0 0 55px rgba(26,171,255,.4), 0 0 110px rgba(26,171,255,.15);
+    }
+
+    /* ── BACKGROUND GRID ───────────────────────────────────────────── */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.013) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.013) 1px, transparent 1px);
+      background-size: 65px 65px;
+      mask-image: radial-gradient(ellipse 85% 85% at center, black, transparent);
+      -webkit-mask-image: radial-gradient(ellipse 85% 85% at center, black, transparent);
+    }
+
+    /* ── SECTION DIVIDER ACCENT ────────────────────────────────────── */
+    .sdivider {
+      background: linear-gradient(90deg, var(--gold), var(--blue), transparent);
+      box-shadow: 0 0 12px rgba(26,171,255,.2);
+    }
+
+    /* ── REVIEW CARD BLUE ACCENT HOVER ─────────────────────────────── */
+    .rv-card:hover {
+      box-shadow: 0 20px 52px rgba(0,0,0,.55), 0 0 40px rgba(26,171,255,.05);
+    }
   </style>
 </head>
 <body>
+<div id="progress-bar"></div>
 
 <!-- ── SPLASH ──────────────────────────────────────────────────────── -->
 <div id="splash">
@@ -1192,6 +1316,19 @@
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-glow"></div>
+  <!-- Floating orbs -->
+  <div class="float-orb" style="width:560px;height:560px;top:-150px;right:-120px;background:radial-gradient(circle,rgba(26,171,255,.085),transparent 62%);animation:orbFloat1 14s ease-in-out infinite;"></div>
+  <div class="float-orb" style="width:400px;height:400px;bottom:-110px;left:-90px;background:radial-gradient(circle,rgba(201,162,39,.07),transparent 62%);animation:orbFloat2 18s ease-in-out 4s infinite;"></div>
+  <div class="float-orb" style="width:270px;height:270px;top:38%;right:30%;background:radial-gradient(circle,rgba(26,171,255,.045),transparent 65%);animation:orbFloat3 11s ease-in-out 7s infinite;"></div>
+  <!-- Floating glass cards (desktop only) -->
+  <div class="hero-float-card" style="bottom:28%;right:15%;animation:hfcFloat1 4.8s ease-in-out infinite;">
+    <div class="hfc-icon">⭐</div>
+    <div><div class="hfc-lbl">Google Rating</div><div class="hfc-val">5.0 / 5.0</div></div>
+  </div>
+  <div class="hero-float-card" style="top:26%;right:7%;animation:hfcFloat2 5.5s ease-in-out 1.3s infinite;">
+    <div class="hfc-icon">✨</div>
+    <div><div class="hfc-lbl">Satisfaction</div><div class="hfc-val">100% Guaranteed</div></div>
+  </div>
   <div class="hero-split">
     <div class="hero-left">
       <div class="eyebrow reveal">Rive-Sud MTL &nbsp;·&nbsp; Châteauguay, QC</div>
@@ -1941,7 +2078,8 @@ class Particle {
     this.vx = (Math.random() - 0.5) * 0.22;
     this.vy = -(Math.random() * 0.32 + 0.08);
     this.a  = Math.random() * 0.5 + 0.08;
-    this.c  = Math.random() > 0.55 ? '#C9A227' : '#ffffff';
+    const pr = Math.random();
+    this.c  = pr > 0.55 ? '#C9A227' : pr > 0.16 ? '#ffffff' : '#1AABFF';
   }
   step() {
     this.x += this.vx; this.y += this.vy; this.a -= 0.0007;
@@ -2081,6 +2219,13 @@ document.querySelectorAll('.ba-card').forEach(function(card) {
     track.scrollLeft = scrollLeft - (x - startX) * 1.5;
   });
 })();
+
+// ── SCROLL PROGRESS BAR ────────────────────────────────────────────────
+var _pb = document.getElementById('progress-bar');
+window.addEventListener('scroll', function() {
+  var docH = document.documentElement.scrollHeight - window.innerHeight;
+  if (_pb && docH > 0) _pb.style.width = (window.scrollY / docH * 100) + '%';
+}, { passive: true });
 
 // ── BOOKING: all Book Now buttons → Setmore ────────────────────────────
 document.querySelectorAll('a[href*="setmore.com"]').forEach(function(link) {
