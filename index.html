@@ -52,6 +52,7 @@
     .nav-logo-img {
       height: 52px; width: auto;
       mix-blend-mode: screen;
+      clip-path: circle(49% at 50% 50%);
       filter: drop-shadow(0 0 10px rgba(201,162,39,.5));
       transition: filter .25s;
     }
@@ -160,6 +161,7 @@
     .hero-logo-img {
       width: min(420px, 42vw); height: auto;
       mix-blend-mode: screen;
+      clip-path: circle(49% at 50% 50%);
       filter: drop-shadow(0 0 50px rgba(201,162,39,.5))
               drop-shadow(0 0 100px rgba(26,171,255,.22));
       animation: heroFloat 5.5s ease-in-out infinite;
@@ -549,6 +551,7 @@
       width: 320px; max-width: 100%; height: auto;
       object-fit: contain;
       mix-blend-mode: screen;
+      clip-path: circle(49% at 50% 50%);
       filter: drop-shadow(0 0 38px rgba(201,162,39,.38))
               drop-shadow(0 0 72px rgba(26,171,255,.16));
     }
@@ -798,6 +801,7 @@
     }
     .footer-brand .fb-logo img {
       height: 44px; width: auto; mix-blend-mode: screen;
+      clip-path: circle(49% at 50% 50%);
       filter: drop-shadow(0 0 8px rgba(201,162,39,.35));
     }
     .footer-brand .fb-logo .fb-badge {
@@ -891,6 +895,7 @@
     }
     .spl-logo {
       width: 240px; height: auto;
+      clip-path: circle(49% at 50% 50%);
       filter: drop-shadow(0 0 36px rgba(201,162,39,.38))
               drop-shadow(0 0 72px rgba(26,171,255,.2));
       animation: splPop .95s cubic-bezier(.34,1.56,.64,1) both;
@@ -1129,7 +1134,7 @@
     .hero-float-card {
       position: absolute; z-index: 3; pointer-events: none;
       background: rgba(255,255,255,.04);
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(255,255,255,.11); border-radius: 14px;
       padding: .75rem 1.15rem; display: flex; align-items: center; gap: .7rem;
       box-shadow: 0 8px 32px rgba(0,0,0,.35);
@@ -1164,12 +1169,12 @@
 
     /* ── CARD SHINE SWEEP ──────────────────────────────────────────── */
     .svc-card::after {
-      content: ''; position: absolute; top: 0; left: -120%; width: 55%; height: 100%;
+      content: ''; position: absolute; top: 0; left: 0; width: 55%; height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,.055), transparent);
-      transform: skewX(-18deg); transition: left .7s ease;
-      pointer-events: none; z-index: 1;
+      transform: translateX(-130%) skewX(-18deg); transition: transform .7s ease;
+      pointer-events: none; z-index: 1; will-change: transform;
     }
-    .svc-card:hover::after { left: 165%; }
+    .svc-card:hover::after { transform: translateX(310%) skewX(-18deg); }
 
     /* ── STAT FLOAT ────────────────────────────────────────────────── */
     @keyframes statFloat {
@@ -1193,19 +1198,24 @@
         linear-gradient(rgba(255,255,255,.013) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.013) 1px, transparent 1px);
       background-size: 65px 65px;
-      mask-image: radial-gradient(ellipse 85% 85% at center, black, transparent);
-      -webkit-mask-image: radial-gradient(ellipse 85% 85% at center, black, transparent);
     }
 
     /* ── SECTION DIVIDER ACCENT ────────────────────────────────────── */
     .sdivider {
       background: linear-gradient(90deg, var(--gold), var(--blue), transparent);
-      box-shadow: 0 0 12px rgba(26,171,255,.2);
     }
 
     /* ── REVIEW CARD BLUE ACCENT HOVER ─────────────────────────────── */
     .rv-card:hover {
       box-shadow: 0 20px 52px rgba(0,0,0,.55), 0 0 40px rgba(26,171,255,.05);
+    }
+
+    /* ── MOBILE PERF: kill paint-heavy looping animations ──────────── */
+    @media (max-width: 768px) {
+      .btn-primary  { animation: none; }
+      .logo-ring    { animation: none; }
+      .stat-item    { animation: none !important; }
+      .float-orb    { animation: none; display: none; }
     }
   </style>
 </head>
@@ -2016,7 +2026,7 @@ document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => revealO
 
 // Strip dark background from logo PNGs — makes near-black pixels transparent
 function stripLogoBg(img) {
-  var thr = 85;
+  var thr = 115;
   try {
     var cvs = document.createElement('canvas');
     cvs.width  = img.naturalWidth  || 512;
