@@ -7,7 +7,7 @@
   <meta name="description" content="Premium car detailing in Châteauguay, Rive-Sud MTL. Interior, exterior, paint correction &amp; ceramic coating. Book online or call 514-503-9296." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
   <!-- Lenis smooth scroll + Motion animation library -->
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
@@ -83,8 +83,8 @@
     .nav-links a::after {
       content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
       height: 1px; background: var(--gold);
-      transform: scaleX(0); transform-origin: center;
-      transition: transform .25s;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .28s cubic-bezier(.34,1.56,.64,1);
     }
     .nav-links a:hover { color: var(--white); }
     .nav-links a:hover::after { transform: scaleX(1); }
@@ -223,6 +223,7 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 38px rgba(201,162,39,.45);
     }
+    .btn-primary:active { transform: scale(.97) translateY(0); box-shadow: 0 2px 12px rgba(201,162,39,.3); }
     .btn-outline {
       background: transparent; color: rgba(255,255,255,.75);
       font-family: 'Montserrat', sans-serif;
@@ -281,21 +282,16 @@
     .section-hd { text-align: center; margin-bottom: 4.5rem; }
     .stag {
       display: inline-block; font-size: .68rem; font-weight: 700;
-      letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+      letter-spacing: 4px; text-transform: uppercase;
       margin-bottom: 1rem;
       border-left: 2px solid var(--blue);
       padding-left: .6rem;
-      background: linear-gradient(90deg, #b8860b 0%, var(--gold-light) 35%, var(--gold) 55%, #b8860b 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmerSweep 3.5s linear infinite;
+      color: var(--gold);
     }
     .stitle {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.9rem, 4.2vw, 3.1rem);
-      font-weight: 700; text-transform: uppercase; line-height: 1.05;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 700; line-height: 1.05;
       letter-spacing: .5px;
     }
     .stitle .gold { color: var(--gold); }
@@ -484,7 +480,12 @@
     .contact-dropdown .cd-addr {
       color: rgba(255,255,255,.28); font-size: .74rem; cursor: default;
     }
-    .contact-dropdown .cd-icon { font-size: .95rem; flex-shrink: 0; }
+    .contact-dropdown .cd-icon { font-size: .95rem; flex-shrink: 0; display: flex; align-items: center; }
+    .cd-icon svg { width: 15px; height: 15px; stroke: currentColor; fill: none; flex-shrink: 0; }
+    .soc-btn .si { font-size: 1rem; display: flex; align-items: center; }
+    .soc-btn .si svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+    .ci .ico { display: flex; align-items: center; }
+    .ci .ico svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
 
     @media (max-width: 768px) {
       .contact-dropdown {
@@ -1306,13 +1307,13 @@
     <li class="nav-contact" id="nav-contact">
       <a href="#" class="nav-contact-btn" id="nav-contact-btn">Contact <span class="nav-caret">▼</span></a>
       <div class="contact-dropdown" id="contact-dropdown">
-        <a href="tel:+15145039296"><span class="cd-icon">📞</span>514-503-9296</a>
+        <a href="tel:+15145039296"><span class="cd-icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.07 2.87 2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></span>514-503-9296</a>
         <div class="cd-divider"></div>
-        <a href="https://www.instagram.com/ad_details._/" target="_blank" rel="noopener"><span class="cd-icon">📸</span>Instagram</a>
-        <a href="https://www.tiktok.com/@ad_detailing.0" target="_blank" rel="noopener"><span class="cd-icon">🎵</span>TikTok</a>
-        <a href="https://www.facebook.com/share/18q1xs8JrJ/" target="_blank" rel="noopener"><span class="cd-icon">📘</span>Facebook</a>
+        <a href="https://www.instagram.com/ad_details._/" target="_blank" rel="noopener"><span class="cd-icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2.5"/></svg></span>Instagram</a>
+        <a href="https://www.tiktok.com/@ad_detailing.0" target="_blank" rel="noopener"><span class="cd-icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="currentColor" style="stroke:none"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.27 8.27 0 004.84 1.55V6.79a4.85 4.85 0 01-1.07-.1z"/></svg></span>TikTok</a>
+        <a href="https://www.facebook.com/share/18q1xs8JrJ/" target="_blank" rel="noopener"><span class="cd-icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></span>Facebook</a>
         <div class="cd-divider"></div>
-        <div class="cd-addr"><span class="cd-icon">📍</span>153 rue Jean-Talon, Châteauguay</div>
+        <div class="cd-addr"><span class="cd-icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>153 rue Jean-Talon, Châteauguay</div>
       </div>
     </li>
     <li><a href="#booking" class="nav-cta">Book Now</a></li>
@@ -1775,18 +1776,18 @@
   </div>
   <div class="contact-row reveal d2">
     <div class="ci"><span class="ico">📍</span><span>153 rue Jean-Talon, Châteauguay, QC</span></div>
-    <div class="ci"><span class="ico">🕐</span><span>8:00 AM – 8:00 PM &nbsp;·&nbsp; 7 days a week</span></div>
-    <div class="ci"><span class="ico">📞</span><a href="tel:+15145039296">514-503-9296</a></div>
+    <div class="ci"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>8:00 AM – 8:00 PM &nbsp;·&nbsp; 7 days a week</span></div>
+    <div class="ci"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.07 2.87 2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></span><a href="tel:+15145039296">514-503-9296</a></div>
   </div>
   <div class="social-row reveal d3">
     <a href="https://www.instagram.com/ad_details._/" target="_blank" rel="noopener" class="soc-btn">
-      <span class="si">📷</span> Instagram
+      <span class="si"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2.5"/></svg></span> Instagram
     </a>
     <a href="https://www.tiktok.com/@ad_detailing.0" target="_blank" rel="noopener" class="soc-btn">
-      <span class="si">🎵</span> TikTok
+      <span class="si"><svg viewBox="0 0 24 24" fill="currentColor" style="stroke:none"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.27 8.27 0 004.84 1.55V6.79a4.85 4.85 0 01-1.07-.1z"/></svg></span> TikTok
     </a>
     <a href="https://www.facebook.com/share/18q1xs8JrJ/" target="_blank" rel="noopener" class="soc-btn">
-      <span class="si">📘</span> Facebook
+      <span class="si"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></span> Facebook
     </a>
   </div>
 </section>
@@ -2271,35 +2272,62 @@ if (typeof Lenis !== 'undefined') {
   });
 }
 
-// ── MOTION PARALLAX (Emil Kowalski-style scroll effects) ───────────────
+// ── MOTION — spring physics scroll effects ─────────────────────────────
 if (typeof Motion !== 'undefined') {
-  const { scroll, animate, inView } = Motion;
+  const { scroll, animate, inView, stagger } = Motion;
+  const springSnappy = [0.34, 1.56, 0.64, 1];
+  const springSmooth = [0.25, 1, 0.5, 1];
   const hero = document.getElementById('hero');
 
-  // Hero logo drifts upward at a different rate — depth parallax
-  scroll(
-    animate('#hero-right', { y: [0, -55] }),
-    { target: hero, offset: ['start start', 'end start'] }
-  );
+  // Depth parallax — logo drifts faster than text
+  scroll(animate('#hero-right',  { y: [0, -55] }), { target: hero, offset: ['start start', 'end start'] });
+  scroll(animate('.hero-left',   { y: [0, -30] }), { target: hero, offset: ['start start', 'end start'] });
 
-  // Hero text drifts slightly slower than the logo
-  scroll(
-    animate('.hero-left', { y: [0, -30] }),
-    { target: hero, offset: ['start start', 'end start'] }
-  );
-
-  // Section headings scale in as they enter the viewport
+  // Section headings — spring scale-in
   inView('.section-hd', function(info) {
-    animate(info.target, { opacity: [0, 1], scale: [0.95, 1], y: [18, 0] },
-      { duration: 0.65, easing: [0.34, 1.56, 0.64, 1] });
-    return false; // only run once
+    animate(info.target, { opacity: [0, 1], scale: [0.94, 1], y: [22, 0] },
+      { duration: 0.7, easing: springSnappy });
+    return false;
   });
 
-  // Review cards float in from below with stagger
+  // Service cards — staggered spring reveal
+  inView('.services-grid', function(info) {
+    animate(info.target.querySelectorAll('.svc-card'),
+      { opacity: [0, 1], y: [36, 0], scale: [0.96, 1] },
+      { duration: 0.6, delay: stagger(0.08), easing: springSnappy });
+    return false;
+  });
+
+  // Stats bar — count up feels more alive with stagger
+  inView('.stats-bar', function(info) {
+    animate(info.target.querySelectorAll('.stat-item'),
+      { opacity: [0, 1], y: [18, 0] },
+      { duration: 0.5, delay: stagger(0.1), easing: springSmooth });
+    return false;
+  });
+
+  // Review cards — float up with stagger
   inView('.reviews-grid', function(info) {
     animate(info.target.querySelectorAll('.rv-card'),
-      { opacity: [0, 1], y: [30, 0] },
-      { duration: 0.5, delay: 0.1, easing: 'ease-out' });
+      { opacity: [0, 1], y: [32, 0], scale: [0.97, 1] },
+      { duration: 0.55, delay: stagger(0.1), easing: springSmooth });
+    return false;
+  });
+
+  // Gallery items — subtle cascade
+  inView('.gallery-grid', function(info) {
+    animate(info.target.querySelectorAll('.g-item'),
+      { opacity: [0, 1], y: [24, 0] },
+      { duration: 0.5, delay: stagger(0.07), easing: springSmooth });
+    return false;
+  });
+
+  // About section — slide in from sides
+  inView('.about-content', function(info) {
+    const left  = info.target.querySelector('.about-text');
+    const right = info.target.querySelector('.about-right');
+    if (left)  animate(left,  { opacity: [0, 1], x: [-28, 0] }, { duration: 0.7, easing: springSmooth });
+    if (right) animate(right, { opacity: [0, 1], x: [28, 0]  }, { duration: 0.7, delay: 0.12, easing: springSmooth });
     return false;
   });
 }
